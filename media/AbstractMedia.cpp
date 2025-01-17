@@ -5,7 +5,7 @@
 namespace media{
 
 AbstractMedia::AbstractMedia(const unsigned int Id, unsigned int PblDate, std::string Title, std::string Author, std::string Descr, 
-                                        std::string PathToImage) : Id(Id), PblDate(PblDate), Author(Author), Descr(Descr), PathToImage(PathToImage) 
+                                        std::string PathToImage) : Id(Id), PblDate(PblDate), Title(Title), Author(Author), Descr(Descr), PathToImage(PathToImage) 
 {
 
 }

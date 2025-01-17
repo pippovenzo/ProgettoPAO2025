@@ -2,7 +2,6 @@
 #define ABSTRACT_MEDIA_H
 
 #include <string>
-#include <ctime>
 
 namespace media{
 
