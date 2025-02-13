@@ -3,6 +3,7 @@
 
 #include "MultiMedia.h"
 
+
 namespace media{
 
 class Song: public MultiMedia{
@@ -22,6 +23,7 @@ class Song: public MultiMedia{
         
         std::string getGenre() const;
         Song& setGenre(std::string& _genre);
+        void accept(Visitor&);
 };
 
 } 

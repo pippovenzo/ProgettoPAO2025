@@ -2,6 +2,7 @@
 #define ABSTRACT_MEDIA_H
 
 #include <string>
+#include "Visitor.h"
 
 namespace media{
 
@@ -37,6 +38,9 @@ class AbstractMedia {
         AbstractMedia& setDescr(const std::string& _Descr);
         const std::string& getImagePath() const;
         AbstractMedia& setImagePath(const std::string& _ImagePath);
+
+        //visitor methods
+        virtual void accept(Visitor&) = 0;
 };
 
 }

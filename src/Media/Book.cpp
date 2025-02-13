@@ -25,4 +25,8 @@ namespace media
 
         return *this;
     }
+
+    void Book::accept(Visitor& v){
+        v.visit(*this);
+    }
 }

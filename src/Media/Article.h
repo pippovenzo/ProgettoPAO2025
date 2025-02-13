@@ -3,6 +3,7 @@
 
 #include "TextualMedia.h"
 
+
 namespace media{
 class Article: public TextualMedia{
     private:
@@ -21,6 +22,7 @@ class Article: public TextualMedia{
 
         std::string getMagazine() const;
         Article& setMagazine(std::string& _magazine);
+        void accept(Visitor&);
 };
 }
 #endif

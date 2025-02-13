@@ -3,6 +3,7 @@
 
 #include "MultiMedia.h"
 #include "Song.h"
+
 #include <vector>
 
 namespace media{
@@ -25,7 +26,8 @@ class Album: public MultiMedia{
         Album& add(const Song& song);
         Album& remove(unsigned int pos);
         static unsigned int length(Album& album);
-
+        std::vector<const Song*> getTracklist() const;
+        void accept(Visitor&);
         void print();
 
 

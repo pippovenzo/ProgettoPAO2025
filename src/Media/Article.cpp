@@ -19,4 +19,8 @@ namespace media{
         
         return *this;
     }
+
+    void Article::accept(Visitor& v){
+        v.visit(*this);
+    }
 }

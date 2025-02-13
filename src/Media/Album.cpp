@@ -29,5 +29,13 @@ namespace media{
             std::cout << (*it)->getTitle() << std::endl;
         }
     }
+
+    std::vector<const Song*> Album::getTracklist() const{
+        return tracklist;
+    }
+
+    void Album::accept(Visitor& v){
+        v.visit(*this);
+    }
     
 }

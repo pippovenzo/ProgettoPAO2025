@@ -23,4 +23,8 @@ namespace media{
 
         return *this;
     }
+
+    void Film::accept(Visitor& v){
+        v.visit(*this);
+    }
 }

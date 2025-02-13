@@ -3,6 +3,7 @@
 
 #include "MultiMedia.h"
 
+
 namespace media{
 
 class Film: public MultiMedia{
@@ -24,6 +25,7 @@ class Film: public MultiMedia{
 
         std::string getCountry() const;
         Film& setCountry(std::string& _country);
+        void accept(Visitor&);
 
 };
 

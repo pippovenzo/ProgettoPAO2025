@@ -21,4 +21,9 @@ namespace media{
 
         return *this;
     }
+
+    void Song::accept(Visitor& v){
+        v.visit(*this);
+    }
+
 }

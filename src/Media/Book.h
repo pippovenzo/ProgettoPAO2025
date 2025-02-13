@@ -22,9 +22,9 @@ class Book: public TextualMedia{
 
         unsigned int getPages() const;
         Book& setPages(unsigned int& _pages);
-
         std::string getIsbn() const;
         Book& setIsbn(std::string& _isbn);
+        void accept(Visitor&);
 
 
 };   
