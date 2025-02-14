@@ -12,6 +12,7 @@
 namespace media{
 namespace storage{
 
+std::string JsonStorage::filePath = "src/Media/Storage/repository.json";
 JsonStorage::JsonStorage(){}
 
 
@@ -21,22 +22,42 @@ QJsonObject JsonStorage::itemToJson(AbstractMedia& media){
 }
 
 JsonStorage& JsonStorage::create(AbstractMedia& item){
-    storage.insert({item.getId(), &item});
+    repository.insert({item.getId(), &item});
 
     return *this;
 }
 
-std::vector<const AbstractMedia*> JsonStorage::extract() {
+JsonStorage& JsonStorage::update(AbstractMedia& item){
+    if(repository.count(item.getId()) > 0) repository[item.getId()] = &item;
+
+    return *this;
+}
+
+const AbstractMedia* JsonStorage::read(const unsigned int id) const{
+    if(repository.count(id) > 0) return repository.at(id);
+
+    return nullptr;
+}
+
+JsonStorage& JsonStorage::remove(const unsigned int id){
+    if(repository.count(id) > 0){
+        delete repository[id];
+        repository.erase(id);
+    }
+    return *this;
+}
+
+std::vector<const AbstractMedia*> JsonStorage::extract() const{
     std::vector<const AbstractMedia*> media;
 
-    for(auto it = storage.begin(); it != storage.end(); ++it){
+    for(auto it = repository.begin(); it != repository.end(); ++it){
         media.push_back(it->second);
     }
 
     return media;
 }
 
-JsonStorage& JsonStorage::flushToFile() {
+JsonStorage& JsonStorage::flushToFile(){
     std::vector<const AbstractMedia*> media = this->extract();
     QJsonArray jsonMedia;
 
@@ -46,12 +67,139 @@ JsonStorage& JsonStorage::flushToFile() {
     }
 
     QJsonDocument doc(jsonMedia);
-    QFile jsonFile("storage.json");
+    QFile jsonFile(QString::fromStdString(filePath));
     jsonFile.open(QFile::WriteOnly);
     jsonFile.write(doc.toJson());
+    jsonFile.close();
 
     return *this;
 }
+
+JsonStorage& JsonStorage::fetchFromFile(){
+    QFile jsonFile(QString::fromStdString(filePath));
+    jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    
+    QJsonDocument doc = QJsonDocument::fromJson(jsonFile.readAll());
+    jsonFile.close();
+
+    QJsonArray jsonMedia = doc.array();
+    QJsonObject object;
+
+    if(!jsonMedia.isEmpty()){
+        for(auto it = jsonMedia.begin(); it != jsonMedia.end(); ++it){
+            object = (*it).toObject();
+            unsigned int id = object.value("id").toInt();
+
+            if(repository.count(id) == 0) repository[id] = JsonToItem(object);
+        }
+    }
+
+    return *this;
+}
+
+const AbstractMedia* JsonStorage::fetchObject(unsigned int id){
+    QFile jsonFile(QString::fromStdString(filePath));
+    jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    
+    QJsonDocument doc = QJsonDocument::fromJson(jsonFile.readAll());
+    jsonFile.close();
+
+    QJsonArray jsonMedia = doc.array();
+    QJsonObject object;
+
+    if(!jsonMedia.isEmpty()){
+        for(auto it = jsonMedia.begin(); it != jsonMedia.end(); ++it){
+            object = (*it).toObject();
+            unsigned int currentId = object.value("id").toInt();
+
+            if(currentId == id) return JsonToItem(object);
+        }
+    }
+    
+    return nullptr;
+
+
+}
+
+AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
+    QJsonValue type = object.value("type");
+
+    if(type.toString() == "album"){
+        Album* a = new Album(
+            object.value("id").toInt(), 
+            object.value("PblDate").toInt(),
+            object.value("title").toString().toStdString(), 
+            object.value("author").toString().toStdString(),
+            object.value("descr").toString().toStdString(),
+            object.value("pathToImage").toString().toStdString()
+        );
+
+        QStringList tracklist = object.value("tracklist").toVariant().toStringList();
+        for(const QString& s: tracklist){
+            if(repository.count(s.toInt()) == 0){
+                repository[s.toInt()] = fetchObject(s.toInt());
+            }
+            a->add(*(dynamic_cast<const Song*>(repository[s.toInt()])));
+        }
+
+        return a;
+    }
+
+    else if(type.toString() == "article"){
+        return new Article(
+            object.value("id").toInt(), 
+            object.value("PblDate").toInt(),
+            object.value("title").toString().toStdString(), 
+            object.value("author").toString().toStdString(),
+            object.value("descr").toString().toStdString(),
+            object.value("pathToImage").toString().toStdString(),
+            object.value("magazine").toString().toStdString()
+        );
+    }
+
+    else if(type.toString() == "book"){
+        return new Book(
+            object.value("id").toInt(), 
+            object.value("PblDate").toInt(),
+            object.value("title").toString().toStdString(), 
+            object.value("author").toString().toStdString(),
+            object.value("descr").toString().toStdString(),
+            object.value("pathToImage").toString().toStdString(),
+            object.value("pages").toInt(),
+            object.value("isbn").toString().toStdString()
+        );
+    }
+    
+    else if(type.toString() == "film"){
+        return new Film(
+            object.value("id").toInt(), 
+            object.value("PblDate").toInt(),
+            object.value("title").toString().toStdString(), 
+            object.value("author").toString().toStdString(),
+            object.value("descr").toString().toStdString(),
+            object.value("pathToImage").toString().toStdString(),
+            object.value("length").toInt(),
+            object.value("country").toString().toStdString()
+        );
+    }
+
+    else if(type.toString() == "song"){
+        return new Song(
+            object.value("id").toInt(), 
+            object.value("PblDate").toInt(),
+            object.value("title").toString().toStdString(), 
+            object.value("author").toString().toStdString(),
+            object.value("descr").toString().toStdString(),
+            object.value("pathToImage").toString().toStdString(),
+            object.value("length").toInt(),
+            object.value("genre").toString().toStdString()
+        );
+    }
+
+    return nullptr;
+}
+
+
 
 }
 }

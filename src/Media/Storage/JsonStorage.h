@@ -21,21 +21,25 @@ class JsonStorage{
         
         //methods for the map
         JsonStorage& create(AbstractMedia& item);
-        JsonStorage& read(unsigned int id);
+        const AbstractMedia* read(unsigned int) const;
         JsonStorage& update(AbstractMedia& item);
         JsonStorage& remove(unsigned int id);
 
         //methods for the json file
         JsonStorage& flushToFile();
         JsonStorage& fetchFromFile();
-    private:
-        JsonVisitor storageVisitor;
-        //static std::string filePath;
-        std::map<unsigned int, AbstractMedia*> storage;
         
+    private:
+        std::map<unsigned int, const AbstractMedia*> repository;
+        JsonVisitor storageVisitor;
+        static std::string filePath;
+        
+
         //conversion methods
         QJsonObject itemToJson(AbstractMedia&);
-        std::vector<const AbstractMedia*> extract();
+        AbstractMedia* JsonToItem(QJsonObject&);
+        std::vector<const AbstractMedia*> extract() const;
+        const AbstractMedia* fetchObject(unsigned int);
 
 };
 

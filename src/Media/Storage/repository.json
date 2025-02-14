@@ -1,0 +1,37 @@
+[
+    {
+        "author": "Nerissima Serpe",
+        "descr": " ",
+        "id": 1,
+        "pathToImage": "/ciao",
+        "pblDate": 2022,
+        "title": "Mafia Slime",
+        "tracklist": [
+            "2",
+            "3"
+        ],
+        "type": "album"
+    },
+    {
+        "author": "Nerissima Serpe",
+        "descr": " ",
+        "genre": "rap",
+        "id": 2,
+        "length": 120,
+        "pathToImage": "/ciao",
+        "pblDate": 2022,
+        "title": "Fratellini della chiesa",
+        "type": "song"
+    },
+    {
+        "author": "Nerissima Serpe",
+        "descr": " ",
+        "genre": "rap",
+        "id": 3,
+        "length": 120,
+        "pathToImage": "/ciao",
+        "pblDate": 2022,
+        "title": "Drive By",
+        "type": "song"
+    }
+]
