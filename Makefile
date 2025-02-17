@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra $(DEFINES)
-INCPATH       = -I. -I. -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/opt/homebrew/share/qt/mkspecs/macx-clang -F/opt/homebrew/lib
+INCPATH       = -I. -I. -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/opt/homebrew/share/qt/mkspecs/macx-clang -F/opt/homebrew/lib
 QMAKE         = /opt/homebrew/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = ProgettoPAO20251.0.0
 DISTDIR = /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/.tmp/ProgettoPAO20251.0.0
 LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/opt/homebrew/lib
-LIBS          = $(SUBLIBS) -F/opt/homebrew/lib -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
+LIBS          = $(SUBLIBS) -F/opt/homebrew/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
 AR            = /Library/Developer/CommandLineTools/usr/bin/ar cq
 RANLIB        = /Library/Developer/CommandLineTools/usr/bin/ranlib -s
 SED           = sed
@@ -52,28 +52,41 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/Media/AbstractMedia.cpp \
+SOURCES       = src/main.cpp \
+		src/Media/AbstractMedia.cpp \
 		src/Media/Album.cpp \
 		src/Media/Article.cpp \
 		src/Media/Book.cpp \
 		src/Media/Film.cpp \
-		src/Media/main.cpp \
 		src/Media/MultiMedia.cpp \
 		src/Media/Song.cpp \
 		src/Media/TextualMedia.cpp \
+		src/View/CardView.cpp \
+		src/View/MainWindow.cpp \
+		src/View/MediaCard.cpp \
 		src/Media/Storage/JsonStorage.cpp \
-		src/Media/Storage/JsonVisitor.cpp 
-OBJECTS       = AbstractMedia.o \
+		src/Media/Storage/JsonVisitor.cpp qrc_application.cpp \
+		moc_CardView.cpp \
+		moc_MainWindow.cpp \
+		moc_MediaCard.cpp
+OBJECTS       = main.o \
+		AbstractMedia.o \
 		Album.o \
 		Article.o \
 		Book.o \
 		Film.o \
-		main.o \
 		MultiMedia.o \
 		Song.o \
 		TextualMedia.o \
+		CardView.o \
+		MainWindow.o \
+		MediaCard.o \
 		JsonStorage.o \
-		JsonVisitor.o
+		JsonVisitor.o \
+		qrc_application.o \
+		moc_CardView.o \
+		moc_MainWindow.o \
+		moc_MediaCard.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/Cellar/qt/6.8.2/share/qt/mkspecs/common/unix.conf \
@@ -427,6 +440,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/resources.prf \
 		/opt/homebrew/share/qt/mkspecs/features/moc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/unix/opengl.prf \
+		/opt/homebrew/share/qt/mkspecs/features/uic.prf \
 		/opt/homebrew/share/qt/mkspecs/features/unix/thread.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qmake_use.prf \
 		/opt/homebrew/share/qt/mkspecs/features/file_copies.prf \
@@ -445,16 +459,22 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/Media/Song.h \
 		src/Media/TextualMedia.h \
 		src/Media/Visitor.h \
+		src/View/CardView.h \
+		src/View/MainWindow.h \
+		src/View/MediaCard.h \
 		src/Media/Storage/JsonStorage.h \
-		src/Media/Storage/JsonVisitor.h src/Media/AbstractMedia.cpp \
+		src/Media/Storage/JsonVisitor.h src/main.cpp \
+		src/Media/AbstractMedia.cpp \
 		src/Media/Album.cpp \
 		src/Media/Article.cpp \
 		src/Media/Book.cpp \
 		src/Media/Film.cpp \
-		src/Media/main.cpp \
 		src/Media/MultiMedia.cpp \
 		src/Media/Song.cpp \
 		src/Media/TextualMedia.cpp \
+		src/View/CardView.cpp \
+		src/View/MainWindow.cpp \
+		src/View/MediaCard.cpp \
 		src/Media/Storage/JsonStorage.cpp \
 		src/Media/Storage/JsonVisitor.cpp
 QMAKE_TARGET  = ProgettoPAO2025
@@ -834,6 +854,7 @@ Makefile: ProgettoPAO2025.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.co
 		/opt/homebrew/share/qt/mkspecs/features/resources.prf \
 		/opt/homebrew/share/qt/mkspecs/features/moc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/unix/opengl.prf \
+		/opt/homebrew/share/qt/mkspecs/features/uic.prf \
 		/opt/homebrew/share/qt/mkspecs/features/unix/thread.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qmake_use.prf \
 		/opt/homebrew/share/qt/mkspecs/features/file_copies.prf \
@@ -844,6 +865,8 @@ Makefile: ProgettoPAO2025.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.co
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
 		ProgettoPAO2025.pro \
+		application.qrc \
+		/opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl \
 		/opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl
 	$(QMAKE) -o Makefile ProgettoPAO2025.pro
@@ -1200,6 +1223,7 @@ Makefile: ProgettoPAO2025.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.co
 /opt/homebrew/share/qt/mkspecs/features/resources.prf:
 /opt/homebrew/share/qt/mkspecs/features/moc.prf:
 /opt/homebrew/share/qt/mkspecs/features/unix/opengl.prf:
+/opt/homebrew/share/qt/mkspecs/features/uic.prf:
 /opt/homebrew/share/qt/mkspecs/features/unix/thread.prf:
 /opt/homebrew/share/qt/mkspecs/features/qmake_use.prf:
 /opt/homebrew/share/qt/mkspecs/features/file_copies.prf:
@@ -1210,6 +1234,8 @@ Makefile: ProgettoPAO2025.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.co
 /opt/homebrew/share/qt/mkspecs/features/yacc.prf:
 /opt/homebrew/share/qt/mkspecs/features/lex.prf:
 ProgettoPAO2025.pro:
+application.qrc:
+/opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl:
 /opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl:
 qmake: FORCE
@@ -1236,9 +1262,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents application.qrc application.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/Media/AbstractMedia.h src/Media/Album.h src/Media/Article.h src/Media/Book.h src/Media/Film.h src/Media/MultiMedia.h src/Media/Song.h src/Media/TextualMedia.h src/Media/Visitor.h src/Media/Storage/JsonStorage.h src/Media/Storage/JsonVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/Media/AbstractMedia.cpp src/Media/Album.cpp src/Media/Article.cpp src/Media/Book.cpp src/Media/Film.cpp src/Media/main.cpp src/Media/MultiMedia.cpp src/Media/Song.cpp src/Media/TextualMedia.cpp src/Media/Storage/JsonStorage.cpp src/Media/Storage/JsonVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Media/AbstractMedia.h src/Media/Album.h src/Media/Article.h src/Media/Book.h src/Media/Film.h src/Media/MultiMedia.h src/Media/Song.h src/Media/TextualMedia.h src/Media/Visitor.h src/View/CardView.h src/View/MainWindow.h src/View/MediaCard.h src/Media/Storage/JsonStorage.h src/Media/Storage/JsonVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/Media/AbstractMedia.cpp src/Media/Album.cpp src/Media/Article.cpp src/Media/Book.cpp src/Media/Film.cpp src/Media/MultiMedia.cpp src/Media/Song.cpp src/Media/TextualMedia.cpp src/View/CardView.cpp src/View/MainWindow.cpp src/View/MediaCard.cpp src/Media/Storage/JsonStorage.cpp src/Media/Storage/JsonVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1265,20 +1292,105 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_application.cpp qrc_application.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_application.cpp qrc_application.cpp
+qrc_application.cpp: application.qrc \
+		/opt/homebrew/share/qt/libexec/rcc \
+		src/assets/images/mafiaslime.png \
+		src/assets/images/placeholder.png
+	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
+
+qrc_application.cpp: application.qrc \
+		/opt/homebrew/share/qt/libexec/rcc \
+		src/assets/images/mafiaslime.png \
+		src/assets/images/placeholder.png
+	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp
+moc_CardView.cpp: src/View/CardView.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/CardView.h -o moc_CardView.cpp
+
+moc_MainWindow.cpp: src/View/MainWindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/View/CardView.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/MainWindow.h -o moc_MainWindow.cpp
+
+moc_MediaCard.cpp: src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/MediaCard.h -o moc_MediaCard.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+compiler_uic_make_all:
+compiler_uic_clean:
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
 compiler_yacc_decl_make_all:
@@ -1287,108 +1399,170 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-AbstractMedia.o: src/Media/AbstractMedia.cpp src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
+main.o: src/main.cpp src/Media/Album.h \
 		src/Media/MultiMedia.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
 		src/Media/Song.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
 		src/Media/Article.h \
 		src/Media/TextualMedia.h \
 		src/Media/Book.h \
-		src/Media/Film.h
+		src/Media/Film.h \
+		src/View/MainWindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/View/CardView.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
+
+AbstractMedia.o: src/Media/AbstractMedia.cpp src/Media/AbstractMedia.h \
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AbstractMedia.o src/Media/AbstractMedia.cpp
 
 Album.o: src/Media/Album.cpp src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h \
-		src/Media/Film.h \
 		src/Media/Song.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Album.o src/Media/Album.cpp
 
 Article.o: src/Media/Article.cpp src/Media/Article.h \
 		src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
-		src/Media/MultiMedia.h \
-		src/Media/Song.h \
-		src/Media/Book.h \
-		src/Media/Film.h
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Article.o src/Media/Article.cpp
 
 Book.o: src/Media/Book.cpp src/Media/Book.h \
 		src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
-		src/Media/MultiMedia.h \
-		src/Media/Song.h \
-		src/Media/Article.h \
-		src/Media/Film.h
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Book.o src/Media/Book.cpp
 
 Film.o: src/Media/Film.cpp src/Media/Film.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
-		src/Media/Song.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Film.o src/Media/Film.cpp
-
-main.o: src/Media/main.cpp src/Media/Album.h \
-		src/Media/MultiMedia.h \
-		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h \
-		src/Media/Film.h \
-		src/Media/Song.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/Media/main.cpp
 
 MultiMedia.o: src/Media/MultiMedia.cpp src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
-		src/Media/Song.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h \
-		src/Media/Film.h
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiMedia.o src/Media/MultiMedia.cpp
 
 Song.o: src/Media/Song.cpp src/Media/Song.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/Album.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h \
-		src/Media/Film.h
+		src/Media/Visitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song.o src/Media/Song.cpp
 
 TextualMedia.o: src/Media/TextualMedia.cpp src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TextualMedia.o src/Media/TextualMedia.cpp
+
+CardView.o: src/View/CardView.cpp src/View/CardView.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/Storage/JsonVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/Song.h \
 		src/Media/Article.h \
+		src/Media/TextualMedia.h \
 		src/Media/Book.h \
-		src/Media/Film.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TextualMedia.o src/Media/TextualMedia.cpp
+		src/Media/Film.h \
+		src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardView.o src/View/CardView.cpp
+
+MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/View/CardView.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
+		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/View/MainWindow.cpp
+
+MediaCard.o: src/View/MediaCard.cpp src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPalette \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpalette.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MediaCard.o src/View/MediaCard.cpp
 
 JsonStorage.o: src/Media/Storage/JsonStorage.cpp /opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
@@ -1396,9 +1570,12 @@ JsonStorage.o: src/Media/Storage/JsonStorage.cpp /opt/homebrew/lib/QtCore.framew
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
+		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
 		src/Media/Storage/JsonStorage.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/Storage/JsonVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/Song.h \
@@ -1423,6 +1600,18 @@ JsonVisitor.o: src/Media/Storage/JsonVisitor.cpp src/Media/Storage/JsonVisitor.h
 		/opt/homebrew/lib/QtCore.framework/Headers/QStringList \
 		/opt/homebrew/lib/QtCore.framework/Headers/qstringlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonVisitor.o src/Media/Storage/JsonVisitor.cpp
+
+qrc_application.o: qrc_application.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_application.o qrc_application.cpp
+
+moc_CardView.o: moc_CardView.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CardView.o moc_CardView.cpp
+
+moc_MainWindow.o: moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
+
+moc_MediaCard.o: moc_MediaCard.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MediaCard.o moc_MediaCard.cpp
 
 ####### Install
 

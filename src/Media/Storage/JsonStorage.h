@@ -28,6 +28,8 @@ class JsonStorage{
         //methods for the json file
         JsonStorage& flushToFile();
         JsonStorage& fetchFromFile();
+
+        std::vector<const AbstractMedia*> extract() const;
         
     private:
         std::map<unsigned int, const AbstractMedia*> repository;
@@ -38,7 +40,7 @@ class JsonStorage{
         //conversion methods
         QJsonObject itemToJson(AbstractMedia&);
         AbstractMedia* JsonToItem(QJsonObject&);
-        std::vector<const AbstractMedia*> extract() const;
+        
         const AbstractMedia* fetchObject(unsigned int);
 
 };
