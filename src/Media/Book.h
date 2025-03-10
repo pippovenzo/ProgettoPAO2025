@@ -25,6 +25,7 @@ class Book: public TextualMedia{
         std::string getIsbn() const;
         Book& setIsbn(std::string& _isbn);
         void accept(Visitor&);
+        void accept(ConstVisitor& v) const;
 
 
 };   

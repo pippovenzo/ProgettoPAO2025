@@ -29,6 +29,9 @@ class JsonStorage{
         JsonStorage& flushToFile();
         JsonStorage& fetchFromFile();
 
+        //Service methods
+        unsigned int getMaxKey() const;
+
         std::vector<const AbstractMedia*> extract() const;
         
     private:
@@ -38,8 +41,8 @@ class JsonStorage{
         
 
         //conversion methods
-        QJsonObject itemToJson(AbstractMedia&);
-        AbstractMedia* JsonToItem(QJsonObject&);
+        QJsonObject itemToJson(const AbstractMedia&);
+        AbstractMedia* JsonToItem(const QJsonObject&);
         
         const AbstractMedia* fetchObject(unsigned int);
 

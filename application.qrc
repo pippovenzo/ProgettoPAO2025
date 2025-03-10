@@ -1,6 +1,10 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
-    <file>src/assets/images/mafiaslime.png</file>
     <file>src/assets/images/placeholder.png</file>
+    <file>src/assets/icons/edit.svg</file>
+    <file>src/assets/icons/view.svg</file>
+    <file>src/assets/icons/previous.svg</file>
+    <file>src/assets/icons/new.svg</file>
+    <file>src/Media/Storage/repository.json</file>
 </qresource>
 </RCC>

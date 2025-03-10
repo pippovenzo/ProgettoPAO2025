@@ -12,11 +12,11 @@ class Song;
 
 class Visitor{
     public:
-        virtual void visit(const Album &a) = 0;
-        virtual void visit(const Article &a) = 0;
-        virtual void visit(const Book &b) = 0;
-        virtual void visit(const Film &f) = 0;
-        virtual void visit(const Song &s) = 0;
+        virtual void visit(Album &a) = 0;
+        virtual void visit(Article &a) = 0;
+        virtual void visit(Book &b) = 0;
+        virtual void visit(Film &f) = 0;
+        virtual void visit(Song &s) = 0;
 };
 
 }

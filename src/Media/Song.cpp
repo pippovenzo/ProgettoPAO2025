@@ -26,4 +26,8 @@ namespace media{
         v.visit(*this);
     }
 
+    void Song::accept(ConstVisitor& v) const{
+        v.visit(*this);
+    }
+
 }

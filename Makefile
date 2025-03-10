@@ -65,10 +65,19 @@ SOURCES       = src/main.cpp \
 		src/View/MainWindow.cpp \
 		src/View/MediaCard.cpp \
 		src/Media/Storage/JsonStorage.cpp \
-		src/Media/Storage/JsonVisitor.cpp qrc_application.cpp \
+		src/Media/Storage/JsonVisitor.cpp \
+		src/View/CreateMedia/CreateWidget.cpp \
+		src/View/EditMedia/EditItem.cpp \
+		src/View/EditMedia/EditVisitor.cpp \
+		src/View/Layout/FlowLayout.cpp \
+		src/View/LookupMedia/LookupVisitor.cpp \
+		src/View/LookupMedia/LookupWidget.cpp qrc_application.cpp \
 		moc_CardView.cpp \
 		moc_MainWindow.cpp \
-		moc_MediaCard.cpp
+		moc_MediaCard.cpp \
+		moc_CreateWidget.cpp \
+		moc_EditItem.cpp \
+		moc_LookupWidget.cpp
 OBJECTS       = main.o \
 		AbstractMedia.o \
 		Album.o \
@@ -83,10 +92,19 @@ OBJECTS       = main.o \
 		MediaCard.o \
 		JsonStorage.o \
 		JsonVisitor.o \
+		CreateWidget.o \
+		EditItem.o \
+		EditVisitor.o \
+		FlowLayout.o \
+		LookupVisitor.o \
+		LookupWidget.o \
 		qrc_application.o \
 		moc_CardView.o \
 		moc_MainWindow.o \
-		moc_MediaCard.o
+		moc_MediaCard.o \
+		moc_CreateWidget.o \
+		moc_EditItem.o \
+		moc_LookupWidget.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/Cellar/qt/6.8.2/share/qt/mkspecs/common/unix.conf \
@@ -454,6 +472,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/Media/Album.h \
 		src/Media/Article.h \
 		src/Media/Book.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Film.h \
 		src/Media/MultiMedia.h \
 		src/Media/Song.h \
@@ -463,7 +482,13 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/View/MainWindow.h \
 		src/View/MediaCard.h \
 		src/Media/Storage/JsonStorage.h \
-		src/Media/Storage/JsonVisitor.h src/main.cpp \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/CreateMedia/CreateWidget.h \
+		src/View/EditMedia/EditItem.h \
+		src/View/EditMedia/EditVisitor.h \
+		src/View/Layout/FlowLayout.h \
+		src/View/LookupMedia/LookupVisitor.h \
+		src/View/LookupMedia/LookupWidget.h src/main.cpp \
 		src/Media/AbstractMedia.cpp \
 		src/Media/Album.cpp \
 		src/Media/Article.cpp \
@@ -476,7 +501,13 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/View/MainWindow.cpp \
 		src/View/MediaCard.cpp \
 		src/Media/Storage/JsonStorage.cpp \
-		src/Media/Storage/JsonVisitor.cpp
+		src/Media/Storage/JsonVisitor.cpp \
+		src/View/CreateMedia/CreateWidget.cpp \
+		src/View/EditMedia/EditItem.cpp \
+		src/View/EditMedia/EditVisitor.cpp \
+		src/View/Layout/FlowLayout.cpp \
+		src/View/LookupMedia/LookupVisitor.cpp \
+		src/View/LookupMedia/LookupWidget.cpp
 QMAKE_TARGET  = ProgettoPAO2025
 DESTDIR       = 
 TARGET        = ProgettoPAO2025.app/Contents/MacOS/ProgettoPAO2025
@@ -1262,10 +1293,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents application.qrc application.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents application.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/Media/AbstractMedia.h src/Media/Album.h src/Media/Article.h src/Media/Book.h src/Media/Film.h src/Media/MultiMedia.h src/Media/Song.h src/Media/TextualMedia.h src/Media/Visitor.h src/View/CardView.h src/View/MainWindow.h src/View/MediaCard.h src/Media/Storage/JsonStorage.h src/Media/Storage/JsonVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/Media/AbstractMedia.cpp src/Media/Album.cpp src/Media/Article.cpp src/Media/Book.cpp src/Media/Film.cpp src/Media/MultiMedia.cpp src/Media/Song.cpp src/Media/TextualMedia.cpp src/View/CardView.cpp src/View/MainWindow.cpp src/View/MediaCard.cpp src/Media/Storage/JsonStorage.cpp src/Media/Storage/JsonVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Media/AbstractMedia.h src/Media/Album.h src/Media/Article.h src/Media/Book.h src/Media/ConstVisitor.h src/Media/Film.h src/Media/MultiMedia.h src/Media/Song.h src/Media/TextualMedia.h src/Media/Visitor.h src/View/CardView.h src/View/MainWindow.h src/View/MediaCard.h src/Media/Storage/JsonStorage.h src/Media/Storage/JsonVisitor.h src/View/CreateMedia/CreateWidget.h src/View/EditMedia/EditItem.h src/View/EditMedia/EditVisitor.h src/View/Layout/FlowLayout.h src/View/LookupMedia/LookupVisitor.h src/View/LookupMedia/LookupWidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/Media/AbstractMedia.cpp src/Media/Album.cpp src/Media/Article.cpp src/Media/Book.cpp src/Media/Film.cpp src/Media/MultiMedia.cpp src/Media/Song.cpp src/Media/TextualMedia.cpp src/View/CardView.cpp src/View/MainWindow.cpp src/View/MediaCard.cpp src/Media/Storage/JsonStorage.cpp src/Media/Storage/JsonVisitor.cpp src/View/CreateMedia/CreateWidget.cpp src/View/EditMedia/EditItem.cpp src/View/EditMedia/EditVisitor.cpp src/View/Layout/FlowLayout.cpp src/View/LookupMedia/LookupVisitor.cpp src/View/LookupMedia/LookupWidget.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1292,19 +1323,17 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_application.cpp qrc_application.cpp
+compiler_rcc_make_all: qrc_application.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_application.cpp qrc_application.cpp
+	-$(DEL_FILE) qrc_application.cpp
 qrc_application.cpp: application.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
-		src/assets/images/mafiaslime.png \
-		src/assets/images/placeholder.png
-	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
-
-qrc_application.cpp: application.qrc \
-		/opt/homebrew/share/qt/libexec/rcc \
-		src/assets/images/mafiaslime.png \
-		src/assets/images/placeholder.png
+		src/Media/Storage/repository.json \
+		src/assets/images/placeholder.png \
+		src/assets/icons/new.svg \
+		src/assets/icons/edit.svg \
+		src/assets/icons/previous.svg \
+		src/assets/icons/view.svg
 	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -1313,9 +1342,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp
+compiler_moc_header_make_all: moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp moc_CreateWidget.cpp moc_EditItem.cpp moc_LookupWidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp
+	-$(DEL_FILE) moc_CardView.cpp moc_MainWindow.cpp moc_MediaCard.cpp moc_CreateWidget.cpp moc_EditItem.cpp moc_LookupWidget.cpp
 moc_CardView.cpp: src/View/CardView.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1326,6 +1355,7 @@ moc_CardView.cpp: src/View/CardView.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Storage/JsonVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
@@ -1334,6 +1364,17 @@ moc_CardView.cpp: src/View/CardView.h \
 		src/Media/TextualMedia.h \
 		src/Media/Book.h \
 		src/Media/Film.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/CardView.h -o moc_CardView.cpp
@@ -1343,6 +1384,8 @@ moc_MainWindow.cpp: src/View/MainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1352,13 +1395,8 @@ moc_MainWindow.cpp: src/View/MainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
-		src/View/CardView.h \
-		src/Media/Storage/JsonStorage.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		src/Media/Storage/JsonVisitor.h \
+		src/Media/ConstVisitor.h \
+		src/View/EditMedia/EditVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/Song.h \
@@ -1366,6 +1404,39 @@ moc_MainWindow.cpp: src/View/MainWindow.h \
 		src/Media/TextualMedia.h \
 		src/Media/Book.h \
 		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/CardView.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/MainWindow.h -o moc_MainWindow.cpp
@@ -1381,9 +1452,130 @@ moc_MediaCard.cpp: src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/View/EditMedia/EditVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/MediaCard.h -o moc_MediaCard.cpp
+
+moc_CreateWidget.cpp: src/View/CreateMedia/CreateWidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/CreateMedia/CreateWidget.h -o moc_CreateWidget.cpp
+
+moc_EditItem.cpp: src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/EditMedia/EditItem.h -o moc_EditItem.cpp
+
+moc_LookupWidget.cpp: src/View/LookupMedia/LookupWidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/pippovenzo/Documents/PAO/ProgettoPAO2025/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/Users/pippovenzo/Documents/PAO/ProgettoPAO2025 -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/View/LookupMedia/LookupWidget.h -o moc_LookupWidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1407,6 +1599,7 @@ main.o: src/main.cpp src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Song.h \
 		src/Media/Storage/JsonStorage.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
@@ -1423,6 +1616,8 @@ main.o: src/main.cpp src/Media/Album.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1430,54 +1625,89 @@ main.o: src/main.cpp src/Media/Album.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/View/EditMedia/EditVisitor.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
 		src/View/CardView.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 AbstractMedia.o: src/Media/AbstractMedia.cpp src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AbstractMedia.o src/Media/AbstractMedia.cpp
 
 Album.o: src/Media/Album.cpp src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Song.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Album.o src/Media/Album.cpp
 
 Article.o: src/Media/Article.cpp src/Media/Article.h \
 		src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Article.o src/Media/Article.cpp
 
 Book.o: src/Media/Book.cpp src/Media/Book.h \
 		src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Book.o src/Media/Book.cpp
 
 Film.o: src/Media/Film.cpp src/Media/Film.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Film.o src/Media/Film.cpp
 
 MultiMedia.o: src/Media/MultiMedia.cpp src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiMedia.o src/Media/MultiMedia.cpp
 
 Song.o: src/Media/Song.cpp src/Media/Song.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song.o src/Media/Song.cpp
 
 TextualMedia.o: src/Media/TextualMedia.cpp src/Media/TextualMedia.h \
 		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TextualMedia.o src/Media/TextualMedia.cpp
 
 CardView.o: src/View/CardView.cpp src/View/CardView.h \
@@ -1490,6 +1720,7 @@ CardView.o: src/View/CardView.cpp src/View/CardView.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Storage/JsonVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
@@ -1498,6 +1729,17 @@ CardView.o: src/View/CardView.cpp src/View/CardView.h \
 		src/Media/TextualMedia.h \
 		src/Media/Book.h \
 		src/Media/Film.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1505,8 +1747,24 @@ CardView.o: src/View/CardView.cpp src/View/CardView.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h
+		src/View/EditMedia/EditVisitor.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QScrollArea \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscrollarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CardView.o src/View/CardView.cpp
 
 MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
@@ -1514,6 +1772,8 @@ MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1523,13 +1783,8 @@ MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
-		src/View/CardView.h \
-		src/Media/Storage/JsonStorage.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		src/Media/Storage/JsonVisitor.h \
+		src/Media/ConstVisitor.h \
+		src/View/EditMedia/EditVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/Song.h \
@@ -1537,12 +1792,50 @@ MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
 		src/Media/TextualMedia.h \
 		src/Media/Book.h \
 		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/CardView.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
+		src/View/CreateMedia/CreateWidget.h \
+		src/View/LookupMedia/LookupWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QScrollArea \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMenuBar \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenubar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/View/MainWindow.cpp
 
 MediaCard.o: src/View/MediaCard.cpp src/View/MediaCard.h \
@@ -1556,12 +1849,57 @@ MediaCard.o: src/View/MediaCard.cpp src/View/MediaCard.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		src/Media/ConstVisitor.h \
+		src/View/EditMedia/EditVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/MainWindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		src/View/CardView.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
 		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QPalette \
-		/opt/homebrew/lib/QtGui.framework/Headers/qpalette.h
+		/opt/homebrew/lib/QtCore.framework/Headers/QDir \
+		/opt/homebrew/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MediaCard.o src/View/MediaCard.cpp
 
 JsonStorage.o: src/Media/Storage/JsonStorage.cpp /opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
@@ -1572,9 +1910,12 @@ JsonStorage.o: src/Media/Storage/JsonStorage.cpp /opt/homebrew/lib/QtCore.framew
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
 		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QDir \
+		/opt/homebrew/lib/QtCore.framework/Headers/qdir.h \
 		src/Media/Storage/JsonStorage.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Storage/JsonVisitor.h \
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
@@ -1592,6 +1933,7 @@ JsonVisitor.o: src/Media/Storage/JsonVisitor.cpp src/Media/Storage/JsonVisitor.h
 		src/Media/Album.h \
 		src/Media/MultiMedia.h \
 		src/Media/AbstractMedia.h \
+		src/Media/ConstVisitor.h \
 		src/Media/Song.h \
 		src/Media/Article.h \
 		src/Media/TextualMedia.h \
@@ -1600,6 +1942,333 @@ JsonVisitor.o: src/Media/Storage/JsonVisitor.cpp src/Media/Storage/JsonVisitor.h
 		/opt/homebrew/lib/QtCore.framework/Headers/QStringList \
 		/opt/homebrew/lib/QtCore.framework/Headers/qstringlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonVisitor.o src/Media/Storage/JsonVisitor.cpp
+
+CreateWidget.o: src/View/CreateMedia/CreateWidget.cpp src/View/CreateMedia/CreateWidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CreateWidget.o src/View/CreateMedia/CreateWidget.cpp
+
+EditItem.o: src/View/EditMedia/EditItem.cpp src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/MainWindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		src/View/MediaCard.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/View/EditMedia/EditVisitor.h \
+		src/View/CardView.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QCheckBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcheckbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditItem.o src/View/EditMedia/EditItem.cpp
+
+EditVisitor.o: src/View/EditMedia/EditVisitor.cpp src/View/EditMedia/EditVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/View/EditMedia/EditItem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditVisitor.o src/View/EditMedia/EditVisitor.cpp
+
+FlowLayout.o: src/View/Layout/FlowLayout.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QtWidgets \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qaction.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgesture.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlistview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qrhiwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscroller.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyle.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtableview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qundoview.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwizard.h \
+		src/View/Layout/FlowLayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
+		/opt/homebrew/lib/QtCore.framework/Headers/QRect \
+		/opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidgetItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStyle \
+		/opt/homebrew/lib/QtCore.framework/Headers/QSize \
+		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FlowLayout.o src/View/Layout/FlowLayout.cpp
+
+LookupVisitor.o: src/View/LookupMedia/LookupVisitor.cpp src/View/LookupMedia/LookupVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		src/View/LookupMedia/LookupWidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LookupVisitor.o src/View/LookupMedia/LookupVisitor.cpp
+
+LookupWidget.o: src/View/LookupMedia/LookupWidget.cpp src/View/LookupMedia/LookupWidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LookupWidget.o src/View/LookupMedia/LookupWidget.cpp
 
 qrc_application.o: qrc_application.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_application.o qrc_application.cpp
@@ -1612,6 +2281,15 @@ moc_MainWindow.o: moc_MainWindow.cpp
 
 moc_MediaCard.o: moc_MediaCard.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MediaCard.o moc_MediaCard.cpp
+
+moc_CreateWidget.o: moc_CreateWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CreateWidget.o moc_CreateWidget.cpp
+
+moc_EditItem.o: moc_EditItem.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_EditItem.o moc_EditItem.cpp
+
+moc_LookupWidget.o: moc_LookupWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_LookupWidget.o moc_LookupWidget.cpp
 
 ####### Install
 

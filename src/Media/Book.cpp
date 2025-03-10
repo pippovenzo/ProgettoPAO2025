@@ -29,4 +29,8 @@ namespace media
     void Book::accept(Visitor& v){
         v.visit(*this);
     }
+
+    void Book::accept(ConstVisitor& v) const{
+        v.visit(*this);
+    }
 }

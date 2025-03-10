@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Visitor.h"
+#include "ConstVisitor.h"
 
 namespace media{
 
@@ -41,6 +42,7 @@ class AbstractMedia {
 
         //visitor methods
         virtual void accept(Visitor&) = 0;
+        virtual void accept(ConstVisitor&) const = 0;
 };
 
 }

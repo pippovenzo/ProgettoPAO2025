@@ -14,7 +14,7 @@ namespace media{
 namespace storage
 {
 
-class JsonVisitor: public Visitor{
+class JsonVisitor: public ConstVisitor{
     private: 
         QJsonObject object;
 

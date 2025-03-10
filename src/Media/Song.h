@@ -24,6 +24,7 @@ class Song: public MultiMedia{
         std::string getGenre() const;
         Song& setGenre(std::string& _genre);
         void accept(Visitor&);
+        void accept(ConstVisitor& v) const;
 };
 
 } 

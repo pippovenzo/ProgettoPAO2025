@@ -5,18 +5,25 @@
 #include <vector>
 
 #include "../Media/Storage/JsonStorage.h"
+#include "Layout/FlowLayout.h"
 
 
 namespace view{
 
 class CardView: public QWidget{
     Q_OBJECT
+    private:   
+        FlowLayout* flowLayout; 
+        void purgeLayout();
     
     public:
         CardView(media::storage::JsonStorage&);
-    
-    private:
         void renderCardView(media::storage::JsonStorage&);
+        void renderStringMatching(media::storage::JsonStorage&, std::string& filter);
+
+    signals:
+        void editMedia(const media::AbstractMedia* media);
+        void lookupMedia(const media::AbstractMedia* media);
 };
 
 }

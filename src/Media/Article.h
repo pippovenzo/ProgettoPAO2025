@@ -23,6 +23,7 @@ class Article: public TextualMedia{
         std::string getMagazine() const;
         Article& setMagazine(std::string& _magazine);
         void accept(Visitor&);
+        void accept(ConstVisitor& v) const;
 };
 }
 #endif

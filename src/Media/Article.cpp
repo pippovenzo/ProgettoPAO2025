@@ -23,4 +23,8 @@ namespace media{
     void Article::accept(Visitor& v){
         v.visit(*this);
     }
+
+    void Article::accept(ConstVisitor& v) const{
+        v.visit(*this);
+    }
 }

@@ -11,6 +11,7 @@ namespace media{
 class Album: public MultiMedia{
     private:
         std::vector<const Song*> tracklist;
+        void print() const;
 
     public:
         Album(
@@ -24,12 +25,12 @@ class Album: public MultiMedia{
         ~Album(){}
         
         Album& add(const Song& song);
-        Album& remove(unsigned int pos);
-        static unsigned int length(Album& album);
+        Album& remove(const Song& song);
         std::vector<const Song*> getTracklist() const;
+        Album& setTracklist(std::vector<const Song*> newTracklist);
         void accept(Visitor&);
-        void print();
-
+        void accept(ConstVisitor& v) const;
+        
 
 };
 

@@ -18,13 +18,14 @@ namespace media{
         return *this;
     }
 
-    Album& Album::remove(unsigned int pos){
-        tracklist.erase(tracklist.begin() + pos);
+    Album& Album::remove(const Song& song){
+        auto pos = std::find(tracklist.begin(), tracklist.end(), &song);
+        if(pos != tracklist.end()) tracklist.erase(pos);
 
         return *this;
     }
 
-    void Album::print(){
+    void Album::print() const{
         for(auto it = tracklist.begin(); it != tracklist.end(); ++it){
             std::cout << (*it)->getTitle() << std::endl;
         }
@@ -33,8 +34,18 @@ namespace media{
     std::vector<const Song*> Album::getTracklist() const{
         return tracklist;
     }
+    Album& Album::setTracklist(std::vector<const Song*> newTracklist){
+        for(auto it = newTracklist.begin(); it != newTracklist.end(); ++it){
+            tracklist.push_back(*it);
+        }
+        return *this;
+    }
 
     void Album::accept(Visitor& v){
+        v.visit(*this);
+    }
+
+    void Album::accept(ConstVisitor& v) const{
         v.visit(*this);
     }
     

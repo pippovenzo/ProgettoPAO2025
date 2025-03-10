@@ -4,6 +4,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QFile>
+#include <QDir>
 
 #include "JsonStorage.h"
 #include "JsonVisitor.h"
@@ -16,20 +17,23 @@ std::string JsonStorage::filePath = "src/Media/Storage/repository.json";
 JsonStorage::JsonStorage(){}
 
 
-QJsonObject JsonStorage::itemToJson(AbstractMedia& media){
+QJsonObject JsonStorage::itemToJson(const AbstractMedia& media){
     media.accept(storageVisitor);
     return storageVisitor.getObject();
 }
 
 JsonStorage& JsonStorage::create(AbstractMedia& item){
-    repository.insert({item.getId(), &item});
+    repository[item.getId()] = &item;
 
     return *this;
 }
 
 JsonStorage& JsonStorage::update(AbstractMedia& item){
-    if(repository.count(item.getId()) > 0) repository[item.getId()] = &item;
+    if(repository.count(item.getId()) > 0){
+        delete repository[item.getId()];
+    }
 
+    create(item);
     return *this;
 }
 
@@ -62,13 +66,12 @@ JsonStorage& JsonStorage::flushToFile(){
     QJsonArray jsonMedia;
 
     for(auto it = media.begin(); it != media.end(); ++it){
-
-        jsonMedia.push_back(itemToJson(*(const_cast<AbstractMedia*>(*it))));
+        jsonMedia.push_back(itemToJson(**it));
     }
 
     QJsonDocument doc(jsonMedia);
     QFile jsonFile(QString::fromStdString(filePath));
-    jsonFile.open(QFile::WriteOnly);
+    jsonFile.open(QFile::WriteOnly | QIODevice::Text);
     jsonFile.write(doc.toJson());
     jsonFile.close();
 
@@ -78,7 +81,7 @@ JsonStorage& JsonStorage::flushToFile(){
 JsonStorage& JsonStorage::fetchFromFile(){
     QFile jsonFile(QString::fromStdString(filePath));
     jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
-    
+
     QJsonDocument doc = QJsonDocument::fromJson(jsonFile.readAll());
     jsonFile.close();
 
@@ -121,13 +124,13 @@ const AbstractMedia* JsonStorage::fetchObject(unsigned int id){
 
 }
 
-AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
+AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
     QJsonValue type = object.value("type");
 
     if(type.toString() == "album"){
         Album* a = new Album(
             object.value("id").toInt(), 
-            object.value("PblDate").toInt(),
+            object.value("pblDate").toInt(),
             object.value("title").toString().toStdString(), 
             object.value("author").toString().toStdString(),
             object.value("descr").toString().toStdString(),
@@ -148,7 +151,7 @@ AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
     else if(type.toString() == "article"){
         return new Article(
             object.value("id").toInt(), 
-            object.value("PblDate").toInt(),
+            object.value("pblDate").toInt(),
             object.value("title").toString().toStdString(), 
             object.value("author").toString().toStdString(),
             object.value("descr").toString().toStdString(),
@@ -160,7 +163,7 @@ AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
     else if(type.toString() == "book"){
         return new Book(
             object.value("id").toInt(), 
-            object.value("PblDate").toInt(),
+            object.value("pblDate").toInt(),
             object.value("title").toString().toStdString(), 
             object.value("author").toString().toStdString(),
             object.value("descr").toString().toStdString(),
@@ -173,7 +176,7 @@ AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
     else if(type.toString() == "film"){
         return new Film(
             object.value("id").toInt(), 
-            object.value("PblDate").toInt(),
+            object.value("pblDate").toInt(),
             object.value("title").toString().toStdString(), 
             object.value("author").toString().toStdString(),
             object.value("descr").toString().toStdString(),
@@ -186,7 +189,7 @@ AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
     else if(type.toString() == "song"){
         return new Song(
             object.value("id").toInt(), 
-            object.value("PblDate").toInt(),
+            object.value("pblDate").toInt(),
             object.value("title").toString().toStdString(), 
             object.value("author").toString().toStdString(),
             object.value("descr").toString().toStdString(),
@@ -197,6 +200,10 @@ AbstractMedia* JsonStorage::JsonToItem(QJsonObject& object){
     }
 
     return nullptr;
+}
+
+unsigned int JsonStorage::getMaxKey() const{
+    return repository.rbegin()->first;
 }
 
 

@@ -26,6 +26,7 @@ class Film: public MultiMedia{
         std::string getCountry() const;
         Film& setCountry(std::string& _country);
         void accept(Visitor&);
+        void accept(ConstVisitor& v) const;
 
 };
 

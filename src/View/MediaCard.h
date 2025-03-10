@@ -7,6 +7,7 @@
 #include <QFrame>
 
 #include "../Media/AbstractMedia.h"
+#include "EditMedia/EditVisitor.h"
 
 namespace view{
 
@@ -15,12 +16,17 @@ class MediaCard: public QWidget{
     private:
         QLabel* image;
         QLabel* title;
+        QLabel* author;
         QPushButton *editButton;
+        QPushButton* viewButton;
         QFrame* frame;
+        const media::AbstractMedia* media;
 
     public:
-        MediaCard(const media::AbstractMedia& media);
-
+        MediaCard(const media::AbstractMedia* media, QWidget* parent = 0);
+        QPushButton* getEditButton() const;
+        QPushButton* getLookupButton() const;
+        const media::AbstractMedia* getMedia() const;
 };
 }
 

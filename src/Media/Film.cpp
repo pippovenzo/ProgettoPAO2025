@@ -27,4 +27,8 @@ namespace media{
     void Film::accept(Visitor& v){
         v.visit(*this);
     }
+
+    void Film::accept(ConstVisitor& v) const{
+        v.visit(*this);
+    }
 }
