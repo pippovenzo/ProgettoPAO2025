@@ -26,7 +26,7 @@ EditItem::EditItem(media::storage::JsonStorage* repo, QWidget* parent): QWidget(
 
     form = new QFormLayout();
     vbox->addLayout(form);
-    
+
     
 }
 
@@ -91,6 +91,7 @@ void EditItem::renderForAbstractMedia(const media::AbstractMedia& media){
 
     connect(selectImage, &QPushButton::clicked, this, &EditItem::pickImage);
     connect(deleteButton, &QPushButton::clicked, this, std::bind(&EditItem::deleteItem, this, media.getId()));
+    
 }
 
 void EditItem::renderForAlbum(const media::Album& a){

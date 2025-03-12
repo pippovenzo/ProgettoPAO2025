@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QFile>
 #include <QDir>
+#include <iostream>
 
 #include "JsonStorage.h"
 #include "JsonVisitor.h"
@@ -87,7 +88,7 @@ JsonStorage& JsonStorage::fetchFromFile(){
 
     QJsonArray jsonMedia = doc.array();
     QJsonObject object;
-
+    
     if(!jsonMedia.isEmpty()){
         for(auto it = jsonMedia.begin(); it != jsonMedia.end(); ++it){
             object = (*it).toObject();
@@ -138,11 +139,16 @@ AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
         );
 
         QStringList tracklist = object.value("tracklist").toVariant().toStringList();
+        const AbstractMedia* tmp;
+
         for(const QString& s: tracklist){
             if(repository.count(s.toInt()) == 0){
-                repository[s.toInt()] = fetchObject(s.toInt());
+                tmp = fetchObject(s.toInt());
+                if(tmp) repository[s.toInt()] = tmp;
             }
-            a->add(*(dynamic_cast<const Song*>(repository[s.toInt()])));
+            if(tmp) a->add(*(dynamic_cast<const Song*>(repository[s.toInt()])));
+            
+           
         }
 
         return a;

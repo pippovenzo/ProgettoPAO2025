@@ -1557,6 +1557,8 @@ moc_LookupWidget.cpp: src/View/LookupMedia/LookupWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
 		src/Media/ConstVisitor.h \
@@ -1595,23 +1597,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-main.o: src/main.cpp src/Media/Album.h \
-		src/Media/MultiMedia.h \
-		src/Media/AbstractMedia.h \
-		src/Media/Visitor.h \
-		src/Media/ConstVisitor.h \
-		src/Media/Song.h \
-		src/Media/Storage/JsonStorage.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		src/Media/Storage/JsonVisitor.h \
-		src/Media/Article.h \
-		src/Media/TextualMedia.h \
-		src/Media/Book.h \
-		src/Media/Film.h \
-		src/View/MainWindow.h \
+main.o: src/main.cpp src/View/MainWindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
@@ -1625,7 +1611,17 @@ main.o: src/main.cpp src/Media/Album.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QFrame \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qframe.h \
+		src/Media/AbstractMedia.h \
+		src/Media/Visitor.h \
+		src/Media/ConstVisitor.h \
 		src/View/EditMedia/EditVisitor.h \
+		src/Media/Album.h \
+		src/Media/MultiMedia.h \
+		src/Media/Song.h \
+		src/Media/Article.h \
+		src/Media/TextualMedia.h \
+		src/Media/Book.h \
+		src/Media/Film.h \
 		src/View/EditMedia/EditItem.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
@@ -1641,6 +1637,12 @@ main.o: src/main.cpp src/Media/Album.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		src/Media/Storage/JsonStorage.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		src/Media/Storage/JsonVisitor.h \
 		src/View/CardView.h \
 		src/View/Layout/FlowLayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLayout \
@@ -1827,6 +1829,7 @@ MainWindow.o: src/View/MainWindow.cpp src/View/MainWindow.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/qsize.h \
 		src/View/CreateMedia/CreateWidget.h \
 		src/View/LookupMedia/LookupWidget.h \
+		src/View/LookupMedia/LookupVisitor.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
@@ -2240,7 +2243,9 @@ LookupVisitor.o: src/View/LookupMedia/LookupVisitor.cpp src/View/LookupMedia/Loo
 		src/Media/Storage/JsonVisitor.h \
 		src/View/LookupMedia/LookupWidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LookupVisitor.o src/View/LookupMedia/LookupVisitor.cpp
 
 LookupWidget.o: src/View/LookupMedia/LookupWidget.cpp src/View/LookupMedia/LookupWidget.h \
@@ -2248,6 +2253,8 @@ LookupWidget.o: src/View/LookupMedia/LookupWidget.cpp src/View/LookupMedia/Looku
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
 		src/Media/AbstractMedia.h \
 		src/Media/Visitor.h \
 		src/Media/ConstVisitor.h \
@@ -2264,8 +2271,6 @@ LookupWidget.o: src/View/LookupMedia/LookupWidget.cpp src/View/LookupMedia/Looku
 		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
 		src/Media/Storage/JsonVisitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LookupWidget.o src/View/LookupMedia/LookupWidget.cpp

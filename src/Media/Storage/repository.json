@@ -1,28 +1,15 @@
 [
     {
         "author": "Nerissima Serpe",
-        "descr": "",
+        "descr": "Ciaa",
         "id": 11,
         "pathToImage": "/Users/pippovenzo/Documents/PAO/ProgettoPAO2025/src/assets/images/mafiaslime.png",
         "pblDate": 2023,
         "title": "Mafia Slime",
         "tracklist": [
-            "0",
-            "13",
-            "38"
+            "13"
         ],
         "type": "album"
-    },
-    {
-        "author": "Nerissima Serpe",
-        "descr": "Una bella canzone",
-        "genre": "rap",
-        "id": 12,
-        "length": 150,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/ProgettoPAO2025/src/assets/images/mafiaslime.png",
-        "pblDate": 2023,
-        "title": "Barakkino",
-        "type": "song"
     },
     {
         "author": "Nerissima Serpe",
@@ -188,14 +175,56 @@
         "type": "song"
     },
     {
-        "author": "Nerissima Serpe",
-        "descr": "ciao",
-        "genre": "rap",
-        "id": 38,
-        "length": 60,
-        "pathToImage": "",
-        "pblDate": 2023,
-        "title": "Claro",
+        "author": "Vasco Rossi",
+        "descr": "Uno dei migliori albume della storia della musica italiana",
+        "id": 39,
+        "pathToImage": "/Users/pippovenzo/Downloads/51WstRfBM-L._UF1000,1000_QL80_.jpg",
+        "pblDate": 1973,
+        "title": "Bollicine",
+        "tracklist": [
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37"
+        ],
+        "type": "album"
+    },
+    {
+        "author": "Stephen King",
+        "descr": "Un horror psicologico che tiene con il fiato sospeso.",
+        "id": 40,
+        "isbn": "987654",
+        "pages": 450,
+        "pathToImage": "it.jpg",
+        "pblDate": 1986,
+        "title": "IT",
+        "type": "book"
+    },
+    {
+        "author": "Beyoncé",
+        "descr": "Un album rivoluzionario che ridefinisce il pop moderno.",
+        "id": 41,
+        "pathToImage": "lemonade.jpg",
+        "pblDate": 2016,
+        "title": "Lemonade",
+        "tracklist": [
+            "42"
+        ],
+        "type": "album"
+    },
+    {
+        "author": "Beyoncé",
+        "descr": "Una canzone potente sul femminismo e l'empowerment.",
+        "genre": "pop",
+        "id": 42,
+        "length": 200,
+        "pathToImage": "lemonade.jpg",
+        "pblDate": 2016,
+        "title": "Formation",
         "type": "song"
     }
+    
 ]
