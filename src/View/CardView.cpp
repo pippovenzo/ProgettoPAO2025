@@ -17,6 +17,7 @@ CardView::CardView(media::storage::JsonStorage& repo){
 
 void CardView::renderCardView(media::storage::JsonStorage& repo){ 
     purgeLayout();
+    
     std::vector<const media::AbstractMedia*> media = repo.extract();
     MediaCard* tmp;
 

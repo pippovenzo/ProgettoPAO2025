@@ -5,6 +5,6 @@
     <file>src/assets/icons/view.svg</file>
     <file>src/assets/icons/previous.svg</file>
     <file>src/assets/icons/new.svg</file>
-    <file>src/Media/Storage/repository.json</file>
+    <file>src/assets/icons/load.svg</file>
 </qresource>
 </RCC>

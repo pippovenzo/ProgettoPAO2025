@@ -14,8 +14,9 @@
 namespace media{
 namespace storage{
 
-std::string JsonStorage::filePath = "src/Media/Storage/repository.json";
-JsonStorage::JsonStorage(){}
+    
+JsonStorage::JsonStorage(std::string filePath): filePath(filePath){
+}
 
 
 QJsonObject JsonStorage::itemToJson(const AbstractMedia& media){
@@ -80,6 +81,8 @@ JsonStorage& JsonStorage::flushToFile(){
 }
 
 JsonStorage& JsonStorage::fetchFromFile(){
+    repository.erase(repository.begin(), repository.end());
+
     QFile jsonFile(QString::fromStdString(filePath));
     jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -210,6 +213,16 @@ AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
 
 unsigned int JsonStorage::getMaxKey() const{
     return repository.rbegin()->first;
+}
+
+JsonStorage& JsonStorage::setFilePath(std::string path){
+    filePath = path;
+
+    return *this;
+}
+
+std::string JsonStorage::getFilePath() const{
+    return filePath;
 }
 
 

@@ -1,28 +1,5 @@
 [
     {
-        "author": "Nerissima Serpe",
-        "descr": "Ciaa",
-        "id": 11,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/ProgettoPAO2025/src/assets/images/mafiaslime.png",
-        "pblDate": 2023,
-        "title": "Mafia Slime",
-        "tracklist": [
-            "13"
-        ],
-        "type": "album"
-    },
-    {
-        "author": "Nerissima Serpe",
-        "descr": "",
-        "genre": "rap",
-        "id": 13,
-        "length": 100,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/ProgettoPAO2025/src/assets/images/mafiaslime.png",
-        "pblDate": 2023,
-        "title": "Giro Grosso",
-        "type": "song"
-    },
-    {
         "author": "J.K. Rowling",
         "descr": "La storia di un giovane mago destinato a combattere il male.",
         "id": 14,
@@ -226,5 +203,4 @@
         "title": "Formation",
         "type": "song"
     }
-    
 ]

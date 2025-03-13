@@ -22,7 +22,7 @@ RESOURCES += application.qrc
 
 namespace view{
 
-MainWindow::MainWindow(): QMainWindow(){
+MainWindow::MainWindow(): QMainWindow(), repo(""){
     QScrollArea* scrollArea = new QScrollArea(this);
     cardView = new CardView(repo.fetchFromFile());
 
@@ -33,13 +33,16 @@ MainWindow::MainWindow(): QMainWindow(){
     create->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_T));
 
     QAction* previosPage = new QAction(QIcon(QPixmap((":/src/assets/icons/previous.svg"))), "Previos page");
-    //previosPage->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
+    
+    QAction* loadFile = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Load repository");
+    loadFile->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_T));
 
     searchBar = new QLineEdit();
-    searchBar->setPlaceholderText("search");
+    searchBar->setPlaceholderText("Search");
 
-    QMenu* ciao = menuBar()->addMenu("&File");
-    ciao->addAction(create);
+    QMenu* FileMenu = menuBar()->addMenu("&File");
+    FileMenu->addAction(create);
+    FileMenu->addAction(loadFile);
 
     //Toolbar creation
     QToolBar* toolbar = addToolBar("");
@@ -47,6 +50,9 @@ MainWindow::MainWindow(): QMainWindow(){
     toolbar->setMovable(false);
 
     toolbar->addAction(previosPage);
+    toolbar->addSeparator();
+
+    toolbar->addAction(loadFile);
     toolbar->addAction(create);
 
     QWidget* spacer = new QWidget();
@@ -69,8 +75,11 @@ MainWindow::MainWindow(): QMainWindow(){
 
     connect(cardView, &CardView::editMedia, this, &MainWindow::editMedia);
     connect(cardView, &CardView::lookupMedia, this, &MainWindow::lookupMedia);
+
     connect(previosPage, &QAction::triggered, this, &MainWindow::goPreviousPage);
     connect(create, &QAction::triggered, this, &MainWindow::create);
+    connect(loadFile, &QAction::triggered, this, &MainWindow::loadRepository);
+
     connect(searchBar, &QLineEdit::textChanged, this, std::bind(&MainWindow::search, this, searchBar));
 
     setCentralWidget(stacked);
@@ -127,6 +136,12 @@ void MainWindow::create(){
 void MainWindow::search(QLineEdit* query){
     std::string filter = query->text().toStdString();
     cardView->renderStringMatching(repo, filter);
+}
+
+void MainWindow::loadRepository(){
+    repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
+
+    emit updateCardView();
 }
 
 

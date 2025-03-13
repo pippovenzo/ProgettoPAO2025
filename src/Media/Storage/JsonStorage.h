@@ -17,7 +17,7 @@ namespace storage
 class JsonStorage{
 
     public: 
-        JsonStorage();
+        JsonStorage(std::string);
         
         //methods for the map
         JsonStorage& create(AbstractMedia& item);
@@ -31,13 +31,16 @@ class JsonStorage{
 
         //Service methods
         unsigned int getMaxKey() const;
-
         std::vector<const AbstractMedia*> extract() const;
+
+        //getter & setter
+        JsonStorage& setFilePath(std::string);
+        std::string getFilePath() const;
         
     private:
         std::map<unsigned int, const AbstractMedia*> repository;
         JsonVisitor storageVisitor;
-        static std::string filePath;
+        std::string filePath;
         
 
         //conversion methods

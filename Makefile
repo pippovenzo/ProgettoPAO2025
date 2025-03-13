@@ -1328,12 +1328,12 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_application.cpp
 qrc_application.cpp: application.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
-		src/Media/Storage/repository.json \
 		src/assets/images/placeholder.png \
 		src/assets/icons/new.svg \
 		src/assets/icons/edit.svg \
 		src/assets/icons/previous.svg \
-		src/assets/icons/view.svg
+		src/assets/icons/view.svg \
+		src/assets/icons/load.svg
 	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

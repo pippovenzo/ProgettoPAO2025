@@ -28,6 +28,7 @@ class MainWindow: public QMainWindow{
         void updateCardView();
         void create();
         void search(QLineEdit* query);
+        void loadRepository();
 
 };
 
