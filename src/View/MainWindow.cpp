@@ -23,6 +23,8 @@ RESOURCES += application.qrc
 namespace view{
 
 MainWindow::MainWindow(): QMainWindow(), repo(""){
+    repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
+
     QScrollArea* scrollArea = new QScrollArea(this);
     cardView = new CardView(repo.fetchFromFile());
 
@@ -33,6 +35,7 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     create->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_T));
 
     QAction* previosPage = new QAction(QIcon(QPixmap((":/src/assets/icons/previous.svg"))), "Previos page");
+    previosPage->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_B));
     
     QAction* loadFile = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Load repository");
     loadFile->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_T));
@@ -40,10 +43,11 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     searchBar = new QLineEdit();
     searchBar->setPlaceholderText("Search");
 
-    QMenu* FileMenu = menuBar()->addMenu("&File");
-    FileMenu->addAction(create);
-    FileMenu->addAction(loadFile);
+    QMenu* fileMenu = menuBar()->addMenu("&File");
+    fileMenu->addAction(loadFile);
 
+    QMenu* mediaMenu = menuBar()->addMenu("&Media");
+    mediaMenu->addAction(create);
     //Toolbar creation
     QToolBar* toolbar = addToolBar("");
     toolbar->setFloatable(false);

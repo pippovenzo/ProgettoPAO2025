@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QCheckBox>
 #include <QFileDialog>
+#include <QMessageBox>
 
 
 namespace view{
@@ -229,10 +230,14 @@ void EditItem::updateMedia(const media::AbstractMedia* media){
 }
 
 void EditItem::deleteItem(unsigned int id){
-    repo->remove(id);
-    repo->flushToFile();
 
-    emit modifiedMedia();
+    if (QMessageBox::Yes == QMessageBox::question(this, "", "Sei sicuro di voler cancellare il media?", QMessageBox::Yes | QMessageBox::No)){
+        repo->remove(id);
+        repo->flushToFile();
+
+        emit modifiedMedia();
+    }
+    
 }
 
 void EditItem::addSongToAlbum(const media::Album* a){

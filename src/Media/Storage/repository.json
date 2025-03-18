@@ -170,17 +170,6 @@
         "type": "album"
     },
     {
-        "author": "Stephen King",
-        "descr": "Un horror psicologico che tiene con il fiato sospeso.",
-        "id": 40,
-        "isbn": "987654",
-        "pages": 450,
-        "pathToImage": "it.jpg",
-        "pblDate": 1986,
-        "title": "IT",
-        "type": "book"
-    },
-    {
         "author": "Beyoncé",
         "descr": "Un album rivoluzionario che ridefinisce il pop moderno.",
         "id": 41,
