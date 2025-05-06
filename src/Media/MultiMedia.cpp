@@ -20,8 +20,6 @@ namespace media{
         return *this;
     }
 
-    MultiMedia::~MultiMedia(){}
-
 
 
 }

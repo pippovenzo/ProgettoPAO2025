@@ -21,7 +21,6 @@ class Film: public MultiMedia{
             unsigned int length, 
             std::string country
         );
-        ~Film();
 
         std::string getCountry() const;
         Film& setCountry(std::string& _country);

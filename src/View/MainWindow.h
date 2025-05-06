@@ -26,7 +26,7 @@ class MainWindow: public QMainWindow{
         void lookupMedia(const media::AbstractMedia*);
         void goPreviousPage();
         void updateCardView();
-        void create();
+        void createNewMedia();
         void search(QLineEdit* query);
         void loadRepository();
         void createRepository();

@@ -15,8 +15,6 @@ class TextualMedia: public AbstractMedia{
             std::string Descr,
             std::string PathToImage
         );
-
-        virtual ~TextualMedia() = 0;
 };
 
 }

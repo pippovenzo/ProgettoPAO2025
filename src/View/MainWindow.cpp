@@ -88,7 +88,7 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     connect(cardView, &CardView::lookupMedia, this, &MainWindow::lookupMedia);
 
     connect(previosPage, &QAction::triggered, this, &MainWindow::goPreviousPage);
-    connect(create, &QAction::triggered, this, &MainWindow::create);
+    connect(create, &QAction::triggered, this, &MainWindow::createNewMedia);
     connect(loadFile, &QAction::triggered, this, &MainWindow::loadRepository);
     connect(createRepo, &QAction::triggered, this, &MainWindow::createRepository);
 
@@ -136,7 +136,7 @@ void MainWindow::updateCardView(){
     cardView->renderCardView(repo.fetchFromFile());
 }
 
-void MainWindow::create(){
+void MainWindow::createNewMedia(){
     create::CreateWidget* createWidget = new create::CreateWidget(&repo.fetchFromFile());
 
     connect(createWidget, &create::CreateWidget::createdMedia, this, &MainWindow::goPreviousPage);

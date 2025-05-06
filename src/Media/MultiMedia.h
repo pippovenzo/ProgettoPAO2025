@@ -20,8 +20,6 @@ class MultiMedia: public AbstractMedia{
             unsigned int length
         );
 
-        virtual ~MultiMedia() = 0;
-
         unsigned int getLength() const;
         MultiMedia& setLength(unsigned int& _length);
 };

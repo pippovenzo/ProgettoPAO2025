@@ -17,7 +17,7 @@ namespace storage
 class JsonStorage{
 
     public: 
-        JsonStorage(std::string);
+        explicit JsonStorage(std::string);
         
         //methods for the map
         JsonStorage& create(AbstractMedia& item);

@@ -12,8 +12,6 @@ namespace media{
         std::string country
     ): MultiMedia(Id, PblDate, Title, Author, Descr, PathToImage, length), country(country) {}
 
-    Film::~Film(){}
-
     std::string Film::getCountry() const{
         return country;
     }

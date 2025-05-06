@@ -10,9 +10,7 @@ AbstractMedia::AbstractMedia(const unsigned int Id, unsigned int PblDate, std::s
 
 }
 
-AbstractMedia::~AbstractMedia() {
-
-}
+AbstractMedia::~AbstractMedia() = default;
 
 unsigned int AbstractMedia::getId() const {
     return Id;

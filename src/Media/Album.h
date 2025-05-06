@@ -20,8 +20,6 @@ class Album: public MultiMedia{
             std::string Author,
             std::string Descr,
             std::string PathToImage);
-
-        ~Album(){}
         
         Album& add(const Song& song);
         Album& remove(const Song& song);

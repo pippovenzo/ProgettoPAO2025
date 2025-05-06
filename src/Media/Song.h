@@ -19,7 +19,6 @@ class Song: public MultiMedia{
             std::string PathToImage, 
             unsigned int length, 
             std::string genre);
-        ~Song(){}
         
         std::string getGenre() const;
         Song& setGenre(std::string& _genre);

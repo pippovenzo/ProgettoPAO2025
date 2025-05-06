@@ -32,7 +32,7 @@ void CardView::renderCardView(media::storage::JsonStorage& repo){
 
 void CardView::purgeLayout(){
     while (QLayoutItem* item = flowLayout->takeAt(0)){
-        item->widget()->setParent(NULL);
+        item->widget()->setParent(nullptr);
         delete item;
     }
 }

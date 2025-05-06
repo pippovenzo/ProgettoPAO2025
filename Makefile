@@ -71,7 +71,8 @@ SOURCES       = src/main.cpp \
 		src/View/EditMedia/EditVisitor.cpp \
 		src/View/Layout/FlowLayout.cpp \
 		src/View/LookupMedia/LookupVisitor.cpp \
-		src/View/LookupMedia/LookupWidget.cpp moc_CardView.cpp \
+		src/View/LookupMedia/LookupWidget.cpp qrc_application.cpp \
+		moc_CardView.cpp \
 		moc_MainWindow.cpp \
 		moc_MediaCard.cpp \
 		moc_CreateWidget.cpp \
@@ -97,6 +98,7 @@ OBJECTS       = main.o \
 		FlowLayout.o \
 		LookupVisitor.o \
 		LookupWidget.o \
+		qrc_application.o \
 		moc_CardView.o \
 		moc_MainWindow.o \
 		moc_MediaCard.o \
@@ -906,6 +908,7 @@ Makefile: BibliotecaVirtuale.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
 		BibliotecaVirtuale.pro \
+		application.qrc \
 		/opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl \
 		/opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl
@@ -1280,6 +1283,7 @@ Makefile: BibliotecaVirtuale.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake
 /opt/homebrew/share/qt/mkspecs/features/yacc.prf:
 /opt/homebrew/share/qt/mkspecs/features/lex.prf:
 BibliotecaVirtuale.pro:
+application.qrc:
 /opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl:
 /opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl:
@@ -1307,6 +1311,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents application.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/Media/AbstractMedia.h src/Media/Album.h src/Media/Article.h src/Media/Book.h src/Media/ConstVisitor.h src/Media/Film.h src/Media/MultiMedia.h src/Media/Song.h src/Media/TextualMedia.h src/Media/Visitor.h src/View/CardView.h src/View/MainWindow.h src/View/MediaCard.h src/Media/Storage/JsonStorage.h src/Media/Storage/JsonVisitor.h src/View/CreateMedia/CreateWidget.h src/View/EditMedia/EditItem.h src/View/EditMedia/EditVisitor.h src/View/Layout/FlowLayout.h src/View/LookupMedia/LookupVisitor.h src/View/LookupMedia/LookupWidget.h $(DISTDIR)/
 	$(COPY_FILE) --parents src/main.cpp src/Media/AbstractMedia.cpp src/Media/Album.cpp src/Media/Article.cpp src/Media/Book.cpp src/Media/Film.cpp src/Media/MultiMedia.cpp src/Media/Song.cpp src/Media/TextualMedia.cpp src/View/CardView.cpp src/View/MainWindow.cpp src/View/MediaCard.cpp src/Media/Storage/JsonStorage.cpp src/Media/Storage/JsonVisitor.cpp src/View/CreateMedia/CreateWidget.cpp src/View/EditMedia/EditItem.cpp src/View/EditMedia/EditVisitor.cpp src/View/Layout/FlowLayout.cpp src/View/LookupMedia/LookupVisitor.cpp src/View/LookupMedia/LookupWidget.cpp $(DISTDIR)/
@@ -1335,8 +1340,19 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_application.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_application.cpp
+qrc_application.cpp: application.qrc \
+		/opt/homebrew/share/qt/libexec/rcc \
+		src/assets/images/placeholder.png \
+		src/assets/icons/new.svg \
+		src/assets/icons/edit.svg \
+		src/assets/icons/previous.svg \
+		src/assets/icons/view.svg \
+		src/assets/icons/load.svg
+	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -1594,7 +1610,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
@@ -2277,6 +2293,9 @@ LookupWidget.o: src/View/LookupMedia/LookupWidget.cpp src/View/LookupMedia/Looku
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LookupWidget.o src/View/LookupMedia/LookupWidget.cpp
+
+qrc_application.o: qrc_application.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_application.o qrc_application.cpp
 
 moc_CardView.o: moc_CardView.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CardView.o moc_CardView.cpp
