@@ -227,7 +227,7 @@ void EditItem::updateMedia(const media::AbstractMedia* media){
         repo->update(*(new media::Song(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newLength, newGenre)));
     }
 
-    if(newImage != media->getImagePath()) renderImage(newImage); 
+    if(media != nullptr && newImage != media->getImagePath()) renderImage(newImage); 
 
     repo->flushToFile();
 

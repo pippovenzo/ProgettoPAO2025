@@ -142,7 +142,7 @@ AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
         );
 
         QStringList tracklist = object.value("tracklist").toVariant().toStringList();
-        const AbstractMedia* tmp;
+        const AbstractMedia* tmp = nullptr;
 
         for(const QString& s: tracklist){
             if(repository.count(s.toInt()) == 0){
