@@ -11,7 +11,6 @@ namespace media{
 class Album: public MultiMedia{
     private:
         std::vector<const Song*> tracklist;
-        void print() const;
 
     public:
         Album(

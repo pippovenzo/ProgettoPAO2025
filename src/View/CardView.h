@@ -15,6 +15,8 @@ class CardView: public QWidget{
     private:   
         FlowLayout* flowLayout; 
         void purgeLayout();
+
+        std::vector<std::string> chopString(std::string& string);
     
     public:
         CardView(media::storage::JsonStorage&);

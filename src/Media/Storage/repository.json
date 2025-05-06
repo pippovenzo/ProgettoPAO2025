@@ -177,19 +177,8 @@
         "pblDate": 2016,
         "title": "Lemonade",
         "tracklist": [
-            "42"
+            "0"
         ],
         "type": "album"
-    },
-    {
-        "author": "Beyoncé",
-        "descr": "Una canzone potente sul femminismo e l'empowerment.",
-        "genre": "pop",
-        "id": 42,
-        "length": 200,
-        "pathToImage": "lemonade.jpg",
-        "pblDate": 2016,
-        "title": "Formation",
-        "type": "song"
     }
 ]

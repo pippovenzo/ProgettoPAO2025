@@ -25,12 +25,6 @@ namespace media{
         return *this;
     }
 
-    void Album::print() const{
-        for(auto it = tracklist.begin(); it != tracklist.end(); ++it){
-            std::cout << (*it)->getTitle() << std::endl;
-        }
-    }
-
     std::vector<const Song*> Album::getTracklist() const{
         return tracklist;
     }

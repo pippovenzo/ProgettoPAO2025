@@ -12,7 +12,8 @@ namespace view{
 namespace edit{
 
 
-EditItem::EditItem(media::storage::JsonStorage* repo, QWidget* parent): QWidget(parent), repo(repo) {
+EditItem::EditItem(media::storage::JsonStorage* repo, bool createMode, QWidget* parent): 
+                                            QWidget(parent), repo(repo), createMode(createMode){
     hbox = new QHBoxLayout(this);
     vbox = new QVBoxLayout();
 
@@ -84,14 +85,18 @@ void EditItem::renderForAbstractMedia(const media::AbstractMedia& media){
     imageHbox->addWidget(selectImage);
     form->addRow("Image", imageHbox);
 
-    QPushButton* deleteButton = new QPushButton("Delete media");
-    vbox->addWidget(deleteButton);
+    if(!createMode){
+        QPushButton* deleteButton = new QPushButton("Delete media");
+        vbox->addWidget(deleteButton);
+
+        connect(deleteButton, &QPushButton::clicked, this, std::bind(&EditItem::deleteItem, this, media.getId()));
+    }
 
     applyBtn = new QPushButton("Apply");
     vbox->addWidget(applyBtn);
 
     connect(selectImage, &QPushButton::clicked, this, &EditItem::pickImage);
-    connect(deleteButton, &QPushButton::clicked, this, std::bind(&EditItem::deleteItem, this, media.getId()));
+   
     
 }
 
@@ -198,24 +203,24 @@ void EditItem::updateMedia(const media::AbstractMedia* media){
         newAlbum->setTracklist(ptr->getTracklist());
         repo->update(*(newAlbum));
     }
-    else if(auto ptr = dynamic_cast<const media::Article*>(media) != nullptr){
+    else if(dynamic_cast<const media::Article*>(media) != nullptr){
         std::string newMagazine = findChild<QLineEdit*>("magazineName")->text().toStdString();
 
         repo->update(*(new media::Article(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newMagazine)));
     }
-    else if(auto ptr = dynamic_cast<const media::Book*>(media) != nullptr){
+    else if(dynamic_cast<const media::Book*>(media) != nullptr){
         unsigned int newPages = findChild<QSpinBox*>("pagesField")->value();
         std::string newIsbn = findChild<QLineEdit*>("isbnField")->text().toStdString();
 
         repo->update(*(new media::Book(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newPages, newIsbn)));
     }
-    else if(auto ptr = dynamic_cast<const media::Film*>(media) != nullptr){
+    else if(dynamic_cast<const media::Film*>(media) != nullptr){
         unsigned int newLength = findChild<QSpinBox*>("lengthField")->value();
         std::string newCountry = findChild<QLineEdit*>("countryField")->text().toStdString();
 
         repo->update(*(new media::Film(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newLength, newCountry)));
     }
-    else if(auto ptr = dynamic_cast<const media::Song*>(media) != nullptr){
+    else if(dynamic_cast<const media::Song*>(media) != nullptr){
         unsigned int newLength = findChild<QSpinBox*>("lengthField")->value();
         std::string newGenre = findChild<QLineEdit*>("genreField")->text().toStdString();
         

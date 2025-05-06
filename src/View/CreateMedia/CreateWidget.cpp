@@ -10,8 +10,6 @@ CreateWidget::CreateWidget(media::storage::JsonStorage* repo, QWidget* parent): 
     QVBoxLayout* vbox = new QVBoxLayout(this);
     stacked = new QStackedWidget();
 
-    edit::EditItem* editWidget = new edit::EditItem(repo);
-
     type = new QComboBox();
     type->addItem("Album");
     type->addItem("Article");
@@ -35,7 +33,7 @@ void CreateWidget::renderCreateWidget(media::storage::JsonStorage* repo){
         stacked->removeWidget(tmp);
         delete tmp;
     }
-    edit::EditItem* editWidget = new edit::EditItem(repo);
+    edit::EditItem* editWidget = new edit::EditItem(repo, true);
     editWidget->renderForCreate(type->currentText().toStdString());
 
     stacked->addWidget(editWidget);

@@ -23,7 +23,11 @@ RESOURCES += application.qrc
 namespace view{
 
 MainWindow::MainWindow(): QMainWindow(), repo(""){
-    repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
+    
+    QString path = QDir().absolutePath() + "/src/Media/Storage/repository.json";
+    repo.setFilePath(path.toStdString());
+    
+    //repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
 
     QScrollArea* scrollArea = new QScrollArea(this);
     cardView = new CardView(repo.fetchFromFile());
@@ -40,11 +44,14 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     QAction* loadFile = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Load repository");
     loadFile->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_T));
 
+    QAction* createRepo = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Create new repository");
+
     searchBar = new QLineEdit();
     searchBar->setPlaceholderText("Search");
 
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(loadFile);
+    fileMenu->addAction(createRepo);
 
     QMenu* mediaMenu = menuBar()->addMenu("&Media");
     mediaMenu->addAction(create);
@@ -83,6 +90,7 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     connect(previosPage, &QAction::triggered, this, &MainWindow::goPreviousPage);
     connect(create, &QAction::triggered, this, &MainWindow::create);
     connect(loadFile, &QAction::triggered, this, &MainWindow::loadRepository);
+    connect(createRepo, &QAction::triggered, this, &MainWindow::createRepository);
 
     connect(searchBar, &QLineEdit::textChanged, this, std::bind(&MainWindow::search, this, searchBar));
 
@@ -143,9 +151,27 @@ void MainWindow::search(QLineEdit* query){
 }
 
 void MainWindow::loadRepository(){
-    repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
+    std::string newPath = QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString();
+
+    if(newPath != ""){
+        repo.setFilePath(newPath);
+    }
+    emit updateCardView();
+}
+
+void MainWindow::createRepository(){
+    std::string filename = "";
+
+    filename = QFileDialog::getSaveFileName(this,  "Create New Repository", QDir().absolutePath(), "Json (*.json)").toStdString();
+
+    QFile newRepo(QString::fromStdString(filename));
+    newRepo.open(QIODevice::WriteOnly);
+    newRepo.close();
+
+    repo.setFilePath(filename);
 
     emit updateCardView();
+    
 }
 
 

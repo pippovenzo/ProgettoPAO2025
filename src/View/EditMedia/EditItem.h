@@ -26,7 +26,7 @@ namespace edit{
 class EditItem: public QWidget{
     Q_OBJECT
     public:
-        explicit EditItem(media::storage::JsonStorage* repo, QWidget* parent = 0);
+        explicit EditItem(media::storage::JsonStorage* repo, bool createMode = false, QWidget* parent = 0);
         void renderForAlbum(const media::Album&);
         void renderForArticle(const media::Article&);
         void renderForBook(const media::Book&);
@@ -38,6 +38,7 @@ class EditItem: public QWidget{
         void renderImage(const std::string&);
         
         media::storage::JsonStorage* repo;
+        bool createMode;
 
         QFormLayout* form;
         QVBoxLayout* vbox;
