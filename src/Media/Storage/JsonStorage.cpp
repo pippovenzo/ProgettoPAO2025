@@ -39,7 +39,7 @@ JsonStorage& JsonStorage::update(AbstractMedia& item){
     return *this;
 }
 
-const AbstractMedia* JsonStorage::read(const unsigned int id) const{
+const AbstractMedia* JsonStorage::read(unsigned int id) const{
     if(repository.count(id) > 0) return repository.at(id);
 
     return nullptr;

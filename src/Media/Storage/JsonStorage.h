@@ -21,7 +21,7 @@ class JsonStorage{
         
         //methods for the map
         JsonStorage& create(AbstractMedia& item);
-        const AbstractMedia* read(unsigned int) const;
+        const AbstractMedia* read(unsigned int id) const;
         JsonStorage& update(AbstractMedia& item);
         JsonStorage& remove(unsigned int id);
 
