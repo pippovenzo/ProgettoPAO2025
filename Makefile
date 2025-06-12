@@ -14,7 +14,7 @@ EQ            = =
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DPROJECT_DIR=\"/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale\" -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra $(DEFINES)
 INCPATH       = -I. -I. -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/opt/homebrew/share/qt/mkspecs/macx-clang -F/opt/homebrew/lib
@@ -446,6 +446,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -520,9 +521,9 @@ TARGET        = BibliotecaVirtuale.app/Contents/MacOS/BibliotecaVirtuale
 
 ####### Custom Variables
 EXPORT_QMAKE_MAC_SDK = macosx
-EXPORT_QMAKE_MAC_SDK_VERSION = 15.4
+EXPORT_QMAKE_MAC_SDK_VERSION = 15.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/.qmake.stash
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -879,6 +880,7 @@ Makefile: BibliotecaVirtuale.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1254,6 +1256,7 @@ Makefile: BibliotecaVirtuale.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1324,6 +1327,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r BibliotecaVirtuale.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1349,6 +1353,7 @@ qrc_application.cpp: application.qrc \
 		src/assets/icons/new.svg \
 		src/assets/icons/edit.svg \
 		src/assets/icons/previous.svg \
+		src/assets/icons/app_icon.png \
 		src/assets/icons/view.svg \
 		src/assets/icons/load.svg
 	/opt/homebrew/share/qt/libexec/rcc -name application application.qrc -o qrc_application.cpp
@@ -2066,7 +2071,9 @@ EditItem.o: src/View/EditMedia/EditItem.cpp src/View/EditMedia/EditItem.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QCheckBox \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QCoreApplication \
+		/opt/homebrew/lib/QtCore.framework/Headers/qcoreapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditItem.o src/View/EditMedia/EditItem.cpp
 
 EditVisitor.o: src/View/EditMedia/EditVisitor.cpp src/View/EditMedia/EditVisitor.h \

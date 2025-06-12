@@ -36,6 +36,7 @@ class EditItem: public QWidget{
     private:
         void renderForAbstractMedia(const media::AbstractMedia&);
         void renderImage(const std::string&);
+        void updateMedia(const media::AbstractMedia* media);
         
         media::storage::JsonStorage* repo;
         bool createMode;
@@ -57,7 +58,7 @@ class EditItem: public QWidget{
 
     public slots:
         void pickImage();
-        void updateMedia(const media::AbstractMedia* media);
+        void applyChanges(const media::AbstractMedia* media);
         void deleteItem(unsigned int id);
         void addSongToAlbum(const media::Album* a);
         void removeSongFromAlbum(const media::Album* a);

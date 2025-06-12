@@ -29,9 +29,8 @@ namespace media{
         return tracklist;
     }
     Album& Album::setTracklist(std::vector<const Song*> newTracklist){
-        for(auto it = newTracklist.begin(); it != newTracklist.end(); ++it){
-            tracklist.push_back(*it);
-        }
+        tracklist = newTracklist;
+
         return *this;
     }
 

@@ -147,11 +147,9 @@ AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
         for(const QString& s: tracklist){
             if(repository.count(s.toInt()) == 0){
                 tmp = fetchObject(s.toInt());
-                if(tmp) repository[s.toInt()] = tmp;
+                repository[s.toInt()] = tmp;
             }
-            if(tmp) a->add(*(dynamic_cast<const Song*>(repository[s.toInt()])));
-            
-           
+            a->add(*(dynamic_cast<const Song*>(repository[s.toInt()])));
         }
 
         return a;

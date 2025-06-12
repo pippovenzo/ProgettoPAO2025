@@ -6,6 +6,7 @@
 #include <QCheckBox>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QCoreApplication>
 
 
 namespace view{
@@ -96,8 +97,8 @@ void EditItem::renderForAbstractMedia(const media::AbstractMedia& media){
     vbox->addWidget(applyBtn);
 
     connect(selectImage, &QPushButton::clicked, this, &EditItem::pickImage);
-   
-    
+    connect(applyBtn, &QPushButton::clicked, this, std::bind(&EditItem::applyChanges, this, &media));
+
 }
 
 void EditItem::renderForAlbum(const media::Album& a){
@@ -123,8 +124,6 @@ void EditItem::renderForAlbum(const media::Album& a){
     tracklistMgt->addWidget(removeSong);
     form->addRow("Tracklist", tracklist);
     form->addRow("", tracklistMgt);
-
-    connect(applyBtn, &QPushButton::clicked, this, std::bind(&EditItem::updateMedia, this, &a));
 } 
 
 void EditItem::renderForArticle(const media::Article& a){
@@ -149,8 +148,6 @@ void EditItem::renderForBook(const media::Book& b){
     QLineEdit* isbnField = new QLineEdit(QString::fromStdString(b.getIsbn()));
     isbnField->setObjectName("isbnField");
     form->addRow("ISBN", isbnField);
-
-    connect(applyBtn, &QPushButton::clicked, this, std::bind(&EditItem::updateMedia, this, &b));
 } 
 
 void EditItem::renderForFilm(const media::Film& f){
@@ -167,7 +164,6 @@ void EditItem::renderForFilm(const media::Film& f){
     countryField->setObjectName("countryField");
     form->addRow("Paese", countryField);
 
-    connect(applyBtn, &QPushButton::clicked, this, std::bind(&EditItem::updateMedia, this, &f));
 }
 
 void EditItem::renderForSong(const media::Song& s){
@@ -183,12 +179,19 @@ void EditItem::renderForSong(const media::Song& s){
     QLineEdit* genreField = new QLineEdit(QString::fromStdString(s.getGenre()));
     genreField->setObjectName("genreField");
     form->addRow("Genre", genreField);
-
-    connect(applyBtn, &QPushButton::clicked, this, std::bind(&EditItem::updateMedia, this, &s));
 } 
 
 void EditItem::pickImage(){
-    imagePath->setText(QFileDialog::getOpenFileName(this, "Select an image", "./", "Image Files (*.png *.jpg *.bmp)"));
+    QString imageName = QFileDialog::getOpenFileName(this, "Select an image", "./", "Image Files (*.png *.jpg *.bmp)");
+    QString destPath = QString(PROJECT_DIR) + "/src/assets/images/";
+
+    if(imageName != ""){
+        QFileInfo info(imageName);
+        QFile::copy(imageName, destPath + info.fileName());
+        imagePath->setText(destPath + info.fileName());
+    }
+
+    renderImage(imagePath->text().toStdString());
 }
 
 void EditItem::updateMedia(const media::AbstractMedia* media){
@@ -220,19 +223,54 @@ void EditItem::updateMedia(const media::AbstractMedia* media){
 
         repo->update(*(new media::Film(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newLength, newCountry)));
     }
-    else if(dynamic_cast<const media::Song*>(media) != nullptr){
+    else if(const media::Song* oldSong = dynamic_cast<const media::Song*>(media)){
         unsigned int newLength = findChild<QSpinBox*>("lengthField")->value();
         std::string newGenre = findChild<QLineEdit*>("genreField")->text().toStdString();
-        
-        repo->update(*(new media::Song(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newLength, newGenre)));
+
+        media::Song* updatedSong = new media::Song(media->getId(), newPblDate, newTitle, newAuthor, newDescr, newImage, newLength, newGenre);
+
+        // Aggiorna tutti gli album che contengono la canzone modificata
+        std::vector<const media::AbstractMedia*> items = repo->extract();
+        for (const media::AbstractMedia* item : items) {
+            const media::Album* album = dynamic_cast<const media::Album*>(item);
+            if (!album) continue;
+
+            std::vector<const media::Song*> tracklist = album->getTracklist();
+            bool modified = false;
+
+            for (auto& track : tracklist) {
+                if (track == oldSong) {
+                    track = updatedSong;
+                    modified = true;    
+                }
+            }
+
+            if (modified) {
+                media::Album* updatedAlbum = new media::Album(*album);
+                updatedAlbum->setTracklist(tracklist); 
+
+                repo->update(*updatedAlbum);
+            }
+        }
+
+        repo->update(*updatedSong);
     }
 
-    if(media != nullptr && newImage != media->getImagePath()) renderImage(newImage); 
+    renderImage(newImage); 
 
     repo->flushToFile();
 
     emit modifiedMedia();
 }
+
+void EditItem::applyChanges(const media::AbstractMedia* media){
+
+    if (QMessageBox::Yes == QMessageBox::question(this, "", "Sei sicuro di voler modificare il media?", QMessageBox::Yes | QMessageBox::No)){
+        updateMedia(media);
+    }
+    
+}
+
 
 void EditItem::deleteItem(unsigned int id){
 
