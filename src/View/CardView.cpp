@@ -11,6 +11,8 @@ namespace view{
 CardView::CardView(media::storage::JsonStorage& repo){
     flowLayout = new FlowLayout(this);
     renderCardView(repo);
+
+    setLayout(flowLayout);
 }
 
 void CardView::renderCardView(media::storage::JsonStorage& repo){ 
@@ -26,8 +28,7 @@ void CardView::renderCardView(media::storage::JsonStorage& repo){
         connect(tmp->getEditButton(), &QPushButton::clicked, std::bind(&CardView::editMedia, this, tmp->getMedia()));
         connect(tmp->getLookupButton(), &QPushButton::clicked, std::bind(&CardView::lookupMedia, this, tmp->getMedia()));
     }
-    
-    setLayout(flowLayout);
+
 }
 
 void CardView::purgeLayout(){
@@ -68,7 +69,6 @@ void CardView::renderStringMatching(media::storage::JsonStorage& repo, std::stri
 
     }
     
-    setLayout(flowLayout);
 
 }
 
