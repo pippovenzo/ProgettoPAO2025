@@ -24,7 +24,7 @@ namespace view{
 
 MainWindow::MainWindow(): QMainWindow(), repo(""){
     
-    QString path = QDir().absolutePath() + "/src/Media/Storage/repository.json";
+    QString path = QString(PROJECT_DIR) + "/src/Media/Storage/repository.json";
     repo.setFilePath(path.toStdString());
     
     //repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
