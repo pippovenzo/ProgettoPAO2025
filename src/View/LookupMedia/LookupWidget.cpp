@@ -113,7 +113,10 @@ void LookupWidget::renderForSong(const media::Song& s){
 }
 
 void LookupWidget::renderImage(const std::string& imagePathStr){
-    QPixmap imagePixMap(QString::fromStdString(imagePathStr));
+    //Setting immagine
+    QString destPath = QString(PROJECT_DIR) + "/src/assets/images/";
+    QPixmap imagePixMap(destPath + QString::fromStdString(imagePathStr));
+
     if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/images/placeholder.png");
 
     image->setPixmap(imagePixMap.scaled(image->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));

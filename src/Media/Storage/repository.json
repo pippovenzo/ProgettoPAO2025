@@ -5,7 +5,7 @@
         "id": 14,
         "isbn": "654321",
         "pages": 500,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/harrypotter.jpg",
+        "pathToImage": "harrypotter.jpg",
         "pblDate": 1997,
         "title": "Harry Potter e la Pietra Filosofale",
         "type": "book"
@@ -16,7 +16,7 @@
         "id": 15,
         "isbn": "987654",
         "pages": 450,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/it.jpg",
+        "pathToImage": "it.jpg",
         "pblDate": 1986,
         "title": "IT",
         "type": "book"
@@ -27,7 +27,7 @@
         "id": 16,
         "isbn": "112233",
         "pages": 200,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/9788845277634_0_0_0_0_0.jpg",
+        "pathToImage": "9788845277634_0_0_0_0_0.jpg",
         "pblDate": 1942,
         "title": "Lo Straniero",
         "type": "book"
@@ -37,7 +37,7 @@
         "descr": "Un'analisi approfondita della politica italiana recente.",
         "id": 17,
         "magazine": "La Repubblica",
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/articolo.jpg",
+        "pathToImage": "articolo.jpg",
         "pblDate": 2024,
         "title": "La crisi della democrazia",
         "type": "article"
@@ -47,7 +47,7 @@
         "descr": "Un reportage sulle nuove tecnologie e il loro impatto sociale.",
         "id": 18,
         "magazine": "Wired Italia",
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/wired.jpg",
+        "pathToImage": "wired.jpg",
         "pblDate": 2023,
         "title": "Intelligenza Artificiale: il futuro è adesso",
         "type": "article"
@@ -58,7 +58,7 @@
         "descr": "Un viaggio nella mente e nella percezione del tempo.",
         "id": 19,
         "length": 150,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/inception.jpg",
+        "pathToImage": "inception.jpg",
         "pblDate": 2010,
         "title": "Inception",
         "type": "film"
@@ -69,7 +69,7 @@
         "descr": "La storia di un magnate corrotto che perde tutto.",
         "id": 20,
         "length": 180,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/wows.jpg",
+        "pathToImage": "wows.jpg",
         "pblDate": 2013,
         "title": "The Wolf of Wall Street",
         "type": "film"
@@ -80,7 +80,7 @@
         "genre": "rock",
         "id": 31,
         "length": 240,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Bollicine",
         "type": "song"
