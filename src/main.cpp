@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
     app.setWindowIcon(QIcon(":/src/assets/icons/app_icon.png")); 
 
     view::MainWindow mainWindow = view::MainWindow();
-    mainWindow.resize(1024, 576);
+    mainWindow.resize(910, 576);
     mainWindow.show();
 
     return app.exec();

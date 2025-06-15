@@ -3,7 +3,7 @@
 
 namespace media{
 
-//incomplete classes declaration insted of includes cuase the creation of circular includes
+//incomplete classes declaration insted of includes cause the creation of circular includes
 class Album;
 class Article;
 class Book;

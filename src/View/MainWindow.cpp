@@ -12,14 +12,6 @@
 #include <QScrollArea>
 #include <QMenuBar>
 
-/*
-
-QT += core widgets
-RESOURCES = application.qrc
-RESOURCES += application.qrc
-*/
-
-
 namespace view{
 
 MainWindow::MainWindow(): QMainWindow(), repo(""){
@@ -27,8 +19,6 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     QString path = QString(PROJECT_DIR) + "/src/Media/Storage/repository.json";
     repo.setFilePath(path.toStdString());
     
-    //repo.setFilePath(QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString());
-
     QScrollArea* scrollArea = new QScrollArea(this);
     cardView = new CardView(repo.fetchFromFile());
 
@@ -41,17 +31,18 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     QAction* previosPage = new QAction(QIcon(QPixmap((":/src/assets/icons/previous.svg"))), "Previos page");
     previosPage->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_B));
     
-    QAction* loadFile = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Load repository");
-    loadFile->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_T));
+    QAction* loadFile = new QAction(QIcon(QPixmap((":/src/assets/icons/open.svg"))), "Load repository");
+    loadFile->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_R));
 
     QAction* createRepo = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Create new repository");
+    createRepo->setShortcut(QKeySequence(Qt::CTRL |Qt::Key_R));
 
     searchBar = new QLineEdit();
     searchBar->setPlaceholderText("Search");
 
     QMenu* fileMenu = menuBar()->addMenu("&File");
-    fileMenu->addAction(loadFile);
     fileMenu->addAction(createRepo);
+    fileMenu->addAction(loadFile);
 
     QMenu* mediaMenu = menuBar()->addMenu("&Media");
     mediaMenu->addAction(create);
@@ -64,7 +55,9 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     toolbar->addSeparator();
 
     toolbar->addAction(loadFile);
+    toolbar->addAction(createRepo);
     toolbar->addAction(create);
+
 
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -151,7 +144,7 @@ void MainWindow::search(QLineEdit* query){
 }
 
 void MainWindow::loadRepository(){
-    std::string newPath = QFileDialog::getOpenFileName(this, "Select a json file", "./", "Json (*.json)").toStdString();
+    std::string newPath = QFileDialog::getOpenFileName(this, "Open a Repository", "./", "Json (*.json)").toStdString();
 
     if(newPath != ""){
         repo.setFilePath(newPath);
@@ -164,14 +157,15 @@ void MainWindow::createRepository(){
 
     filename = QFileDialog::getSaveFileName(this,  "Create New Repository", QDir().absolutePath(), "Json (*.json)").toStdString();
 
-    QFile newRepo(QString::fromStdString(filename));
-    newRepo.open(QIODevice::WriteOnly);
-    newRepo.close();
+    if(filename != ""){
+        QFile newRepo(QString::fromStdString(filename));
+        newRepo.open(QIODevice::WriteOnly);
+        newRepo.close();
 
-    repo.setFilePath(filename);
+        repo.setFilePath(filename);
 
-    emit updateCardView();
-    
+        emit updateCardView();
+    }
 }
 
 

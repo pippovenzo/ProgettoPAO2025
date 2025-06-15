@@ -21,7 +21,7 @@ MediaCard::MediaCard(const media::AbstractMedia* media, QWidget* parent): QWidge
     //Setting immagine
     QString destPath = QString(PROJECT_DIR) + "/src/assets/images/";
     QPixmap imagePixMap(destPath + QString::fromStdString(media->getImagePath()));
-    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/images/placeholder.png");
+    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/icons/placeholder.svg");
     
     image = new QLabel();
     image->setScaledContents(false); 

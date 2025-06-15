@@ -58,7 +58,7 @@ void EditItem::renderImage(const std::string& imagePathStr){
     QString destPath = QString(PROJECT_DIR) + "/src/assets/images/";
     QPixmap imagePixMap(destPath + QString::fromStdString(imagePathStr));
 
-    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/images/placeholder.png");
+    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/icons/placeholder.svg");
 
     image->setPixmap(imagePixMap.scaled(image->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
    
@@ -194,7 +194,7 @@ void EditItem::pickImage(){
         imagePath->setText(info.fileName());
     }
 
-    renderImage(destPath.toStdString() + imagePath->text().toStdString());
+    renderImage(imagePath->text().toStdString());
 }
 
 void EditItem::updateMedia(const media::AbstractMedia* media){

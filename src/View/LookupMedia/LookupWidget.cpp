@@ -43,7 +43,7 @@ void LookupWidget::renderForAbstractMedia(const media::AbstractMedia& media){
 
     QLabel* PblYear = new QLabel(QString::number(media.getPblDate()));
     PblYear->setStyleSheet("font-weight: bold;");
-    form->addRow("Anno pubblicazione", PblYear); //FARE VISITOR PER LOOKUP
+    form->addRow("Anno pubblicazione", PblYear); 
 }
 void LookupWidget::renderForAlbum(const media::Album& a){
     renderForAbstractMedia(a);
@@ -117,10 +117,9 @@ void LookupWidget::renderImage(const std::string& imagePathStr){
     QString destPath = QString(PROJECT_DIR) + "/src/assets/images/";
     QPixmap imagePixMap(destPath + QString::fromStdString(imagePathStr));
 
-    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/images/placeholder.png");
+    if(!imagePixMap) imagePixMap = QPixmap(":/src/assets/icons/placeholder.svg");
 
     image->setPixmap(imagePixMap.scaled(image->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-   
 }
 
 }

@@ -1,16 +1,5 @@
 [
     {
-        "author": "J.K. Rowling",
-        "descr": "La storia di un giovane mago destinato a combattere il male.",
-        "id": 14,
-        "isbn": "654321",
-        "pages": 500,
-        "pathToImage": "harrypotter.jpg",
-        "pblDate": 1997,
-        "title": "Harry Potter e la Pietra Filosofale",
-        "type": "book"
-    },
-    {
         "author": "Stephen King",
         "descr": "Un horror psicologico che tiene con il fiato sospeso.",
         "id": 15,
@@ -91,7 +80,7 @@
         "genre": "rock",
         "id": 32,
         "length": 230,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Una canzone per te",
         "type": "song"
@@ -102,7 +91,7 @@
         "genre": "rock",
         "id": 33,
         "length": 220,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Portatemi Dio",
         "type": "song"
@@ -113,7 +102,7 @@
         "genre": "rock",
         "id": 34,
         "length": 250,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Ogni volta",
         "type": "song"
@@ -124,7 +113,7 @@
         "genre": "rock",
         "id": 35,
         "length": 215,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Deviazioni",
         "type": "song"
@@ -135,7 +124,7 @@
         "genre": "rock",
         "id": 36,
         "length": 225,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Giocala",
         "type": "song"
@@ -146,7 +135,7 @@
         "genre": "rock",
         "id": 37,
         "length": 240,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1983,
         "title": "Vita spericolata",
         "type": "song"
@@ -155,7 +144,7 @@
         "author": "Vasco Rossi",
         "descr": "Uno dei migliori album della storia della musica italiana",
         "id": 39,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/vasco.jpg",
+        "pathToImage": "vasco.jpg",
         "pblDate": 1973,
         "title": "Bollicine",
         "tracklist": [
@@ -169,7 +158,7 @@
         "author": "Beyoncé",
         "descr": "Un album rivoluzionario che ridefinisce il pop moderno.",
         "id": 41,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/81QYCfKUAML.jpg",
+        "pathToImage": "81QYCfKUAML.jpg",
         "pblDate": 2016,
         "title": "Lemonade",
         "tracklist": [
@@ -182,7 +171,7 @@
         "id": 42,
         "isbn": "543210",
         "pages": 328,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/1984.jpg",
+        "pathToImage": "1984.jpg",
         "pblDate": 1949,
         "title": "1984",
         "type": "book"
@@ -192,7 +181,7 @@
         "descr": "Un'analisi dettagliata degli effetti del riscaldamento globale sulle coltivazioni in Italia.",
         "id": 43,
         "magazine": "National Geographic Italia",
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/articolo.jpg",
+        "pathToImage": "articolo.jpg",
         "pblDate": 2024,
         "title": "L'impatto del cambiamento climatico sull'agricoltura italiana",
         "type": "article"
@@ -203,7 +192,7 @@
         "descr": "Un film cult che intreccia diverse storie di criminalità a Los Angeles.",
         "id": 44,
         "length": 154,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/pulpfiction.jpg",
+        "pathToImage": "pulpfiction.jpg",
         "pblDate": 1994,
         "title": "Pulp Fiction",
         "type": "film"
@@ -214,7 +203,7 @@
         "genre": "pop",
         "id": 45,
         "length": 280,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/emozioni.jpg",
+        "pathToImage": "emozioni.jpg",
         "pblDate": 1970,
         "title": "Emozioni",
         "type": "song"
@@ -223,7 +212,7 @@
         "author": "Fabrizio De André",
         "descr": "Un album capolavoro interamente cantato in genovese, un viaggio musicale nel Mediterraneo.",
         "id": 46,
-        "pathToImage": "/Users/pippovenzo/Documents/PAO/BibliotecaVirtuale/src/assets/images/deandre.jpg",
+        "pathToImage": "deandre.jpg",
         "pblDate": 1984,
         "title": "Crêuza de mä",
         "tracklist": [
@@ -236,7 +225,7 @@
         "id": 47,
         "isbn": "123123",
         "pages": 432,
-        "pathToImage": "/Users/pippovenzo/Downloads/orgoglioepregiudizio.jpg",
+        "pathToImage": "81SIqsJMPAL._UF1000,1000_QL80_.jpg",
         "pblDate": 1813,
         "title": "Orgoglio e Pregiudizio",
         "type": "book"
@@ -246,43 +235,10 @@
         "descr": "Un'indagine sulle tendenze e le sfide dello smart working nel contesto italiano post-pandemia.",
         "id": 48,
         "magazine": "Il Sole 24 Ore",
-        "pathToImage": "/Users/pippovenzo/Downloads/sole24ore_articolo.jpg",
+        "pathToImage": "NEWSUN5-6-2018.png",
         "pblDate": 2024,
         "title": "Le nuove frontiere del lavoro agile in Italia",
         "type": "article"
-    },
-    {
-        "author": "Roberto Benigni",
-        "country": "Italia",
-        "descr": "Una tragicommedia toccante ambientata durante l'Olocausto.",
-        "id": 49,
-        "length": 116,
-        "pathToImage": "/Users/pippovenzo/Downloads/lavitaebella.jpg",
-        "pblDate": 1997,
-        "title": "La Vita è Bella",
-        "type": "film"
-    },
-    {
-        "author": "Queen",
-        "descr": "Un capolavoro operistico rock, una delle canzoni più famose al mondo.",
-        "genre": "rock",
-        "id": 50,
-        "length": 355,
-        "pathToImage": "/Users/pippovenzo/Downloads/queen_bohemian.jpg",
-        "pblDate": 1975,
-        "title": "Bohemian Rhapsody",
-        "type": "song"
-    },
-    {
-        "author": "The Beatles",
-        "descr": "L'ultimo album registrato dai Beatles, un'icona della musica pop.",
-        "id": 51,
-        "pathToImage": "/Users/pippovenzo/Downloads/abbeyroad.jpg",
-        "pblDate": 1969,
-        "title": "Abbey Road",
-        "tracklist": [
-        ],
-        "type": "album"
     },
     {
         "author": "Pink Floyd",
@@ -290,7 +246,7 @@
         "genre": "rock progressivo",
         "id": 52,
         "length": 382,
-        "pathToImage": "/Users/pippovenzo/Downloads/pinkfloyd_money.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Money",
         "type": "song"
@@ -301,7 +257,7 @@
         "genre": "rock progressivo",
         "id": 53,
         "length": 413,
-        "pathToImage": "/Users/pippovenzo/Downloads/pinkfloyd_time.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Time",
         "type": "song"
@@ -310,7 +266,7 @@
         "author": "Pink Floyd",
         "descr": "Un capolavoro del rock progressivo, esplorazione di temi universali come il conflitto, l'avidità, il passare del tempo e la malattia mentale.",
         "id": 54,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "The Dark Side of the Moon",
         "tracklist": [
@@ -328,22 +284,11 @@
         "type": "album"
     },
     {
-        "author": "Gabriel Garcia Marquez",
-        "descr": "Un capolavoro del realismo magico che narra le vicende della famiglia Buendía.",
-        "id": 55,
-        "isbn": "998877",
-        "pages": 471,
-        "pathToImage": "/Users/pippovenzo/Downloads/centanni.jpg",
-        "pblDate": 1967,
-        "title": "Cent'anni di solitudine",
-        "type": "book"
-    },
-    {
         "author": "Laura Moretti",
         "descr": "Un approfondimento su come le aziende italiane stanno affrontando la transizione ecologica.",
         "id": 56,
         "magazine": "Corriere della Sera - Economia",
-        "pathToImage": "/Users/pippovenzo/Downloads/corriere_economia.jpg",
+        "pathToImage": "corriere.jpg",
         "pblDate": 2025,
         "title": "Sostenibilità e innovazione: le sfide del Made in Italy",
         "type": "article"
@@ -354,7 +299,7 @@
         "descr": "Un epico spaghetti western con una colonna sonora indimenticabile di Ennio Morricone.",
         "id": 57,
         "length": 166,
-        "pathToImage": "/Users/pippovenzo/Downloads/cerunavoltailwest.jpg",
+        "pathToImage": "sergio.jpg",
         "pblDate": 1968,
         "title": "C'era una volta il West",
         "type": "film"
@@ -365,23 +310,10 @@
         "genre": "cantautore",
         "id": 58,
         "length": 247,
-        "pathToImage": "/Users/pippovenzo/Downloads/battiato_lacura.jpg",
+        "pathToImage": "0044001325427_0_0_536_0_75.jpg",
         "pblDate": 1996,
         "title": "La Cura",
         "type": "song"
-    },
-    {
-        "author": "Led Zeppelin",
-        "descr": "Un album fondamentale nella storia del rock, contenente classici intramontabili.",
-        "id": 59,
-        "pathToImage": "/Users/pippovenzo/Downloads/ledzeppeliniv.jpg",
-        "pblDate": 1971,
-        "title": "Led Zeppelin IV",
-        "tracklist": [
-            "60",
-            "61"
-        ],
-        "type": "album"
     },
     {
         "author": "Led Zeppelin",
@@ -389,20 +321,9 @@
         "genre": "rock",
         "id": 60,
         "length": 482,
-        "pathToImage": "/Users/pippovenzo/Downloads/ledzep_stairway.jpg",
+        "pathToImage": "starwaytoheaven.jpg",
         "pblDate": 1971,
         "title": "Stairway to Heaven",
-        "type": "song"
-    },
-    {
-        "author": "Led Zeppelin",
-        "descr": "Un potente brano rock con un riff inconfondibile e la voce graffiante di Plant.",
-        "genre": "hard rock",
-        "id": 61,
-        "length": 296,
-        "pathToImage": "/Users/pippovenzo/Downloads/ledzep_blackdog.jpg",
-        "pblDate": 1971,
-        "title": "Black Dog",
         "type": "song"
     },
     {
@@ -411,7 +332,7 @@
         "genre": "Sound collage",
         "id": 62,
         "length": 67,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Speak to Me",
         "type": "song"
@@ -422,7 +343,7 @@
         "genre": "Rock progressivo",
         "id": 63,
         "length": 167,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Breathe (In the Air)",
         "type": "song"
@@ -433,7 +354,7 @@
         "genre": "Elettronica sperimentale",
         "id": 64,
         "length": 225,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "On the Run",
         "type": "song"
@@ -444,7 +365,7 @@
         "genre": "Rock progressivo",
         "id": 65,
         "length": 284,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "The Great Gig in the Sky",
         "type": "song"
@@ -455,7 +376,7 @@
         "genre": "Rock progressivo",
         "id": 66,
         "length": 469,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Us and Them",
         "type": "song"
@@ -466,7 +387,7 @@
         "genre": "Rock psichedelico",
         "id": 67,
         "length": 205,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Any Colour You Like",
         "type": "song"
@@ -477,7 +398,7 @@
         "genre": "Rock psichedelico",
         "id": 68,
         "length": 228,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Brain Damage",
         "type": "song"
@@ -488,7 +409,7 @@
         "genre": "Rock progressivo",
         "id": 69,
         "length": 123,
-        "pathToImage": "/Users/pippovenzo/Downloads/darksideofthemoon.jpg",
+        "pathToImage": "Dark_Side_of_the_Moon.png",
         "pblDate": 1973,
         "title": "Eclipse",
         "type": "song"
