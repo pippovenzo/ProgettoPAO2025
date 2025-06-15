@@ -37,6 +37,9 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     QAction* createRepo = new QAction(QIcon(QPixmap((":/src/assets/icons/load.svg"))), "Create new repository");
     createRepo->setShortcut(QKeySequence(Qt::CTRL |Qt::Key_R));
 
+    QAction* returnHome = new QAction(QIcon(QPixmap(":/src/assets/icons/house.svg")), "Return to Home Repository");
+    returnHome->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT |Qt::Key_H));
+
     searchBar = new QLineEdit();
     searchBar->setPlaceholderText("Search");
 
@@ -63,6 +66,7 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolbar->addWidget(spacer);
 
+    toolbar->addAction(returnHome);
     toolbar->addWidget(searchBar);
     toolbar->addSeparator();
 
@@ -84,6 +88,7 @@ MainWindow::MainWindow(): QMainWindow(), repo(""){
     connect(create, &QAction::triggered, this, &MainWindow::createNewMedia);
     connect(loadFile, &QAction::triggered, this, &MainWindow::loadRepository);
     connect(createRepo, &QAction::triggered, this, &MainWindow::createRepository);
+    connect(returnHome, &QAction::triggered, this, &MainWindow::returnHomeRepo);
 
     connect(searchBar, &QLineEdit::textChanged, this, std::bind(&MainWindow::search, this, searchBar));
 
@@ -166,6 +171,13 @@ void MainWindow::createRepository(){
 
         emit updateCardView();
     }
+}
+
+void MainWindow::returnHomeRepo(){
+    QString path = QString(PROJECT_DIR) + "/src/Media/Storage/repository.json";
+    repo.setFilePath(path.toStdString());
+
+    emit updateCardView();
 }
 
 

@@ -30,6 +30,7 @@ class MainWindow: public QMainWindow{
         void search(QLineEdit* query);
         void loadRepository();
         void createRepository();
+        void returnHomeRepo();
 
 };
 

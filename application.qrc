@@ -7,6 +7,7 @@
     <file>src/assets/icons/new.svg</file>
     <file>src/assets/icons/load.svg</file>
     <file>src/assets/icons/open.svg</file>
+    <file>src/assets/icons/house.svg</file>
     <file>src/assets/icons/app_icon.png</file>
 </qresource>
 </RCC>
