@@ -210,6 +210,8 @@ AbstractMedia* JsonStorage::JsonToItem(const QJsonObject& object){
 }
 
 unsigned int JsonStorage::getMaxKey() const{
+    if (repository.empty())
+        return 0;
     return repository.rbegin()->first;
 }
 
